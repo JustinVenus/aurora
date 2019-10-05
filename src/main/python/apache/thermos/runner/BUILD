@@ -42,6 +42,7 @@ python_library(
 python_binary(
   name = 'thermos_runner',
   entry_point = 'apache.thermos.runner.thermos_runner',
+  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_runner',
   ],

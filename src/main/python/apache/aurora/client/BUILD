@@ -43,6 +43,7 @@ python_library(
 python_binary(
   name='aurora',
   entry_point = 'apache.aurora.client.cli.client:proxy_main',
+  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_client'
   ],

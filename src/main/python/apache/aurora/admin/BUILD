@@ -30,6 +30,7 @@ python_library(
 python_binary(
   name = 'aurora_admin',
   entry_point = 'apache.aurora.admin.aurora_admin:proxy_main',
+  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_admin',
   ]

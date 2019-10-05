@@ -49,6 +49,7 @@ python_library(
 python_binary(
   name = 'thermos_executor',
   entry_point = 'apache.aurora.executor.bin.thermos_executor_main:proxy_main',
+  compatibility = 'CPython>=3.6,<4',
   always_write_cache = True,
   dependencies = [
     ':_executor',

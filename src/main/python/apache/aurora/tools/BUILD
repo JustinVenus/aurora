@@ -45,6 +45,7 @@ python_binary(
   name = 'thermos',
   # TODO(ksweeney): Investigate making this use entry_point instead.
   source = THERMOS_SOURCE,
+  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_tools',
   ]
@@ -62,6 +63,7 @@ python_binary(
   name = 'thermos_observer',
   # TODO(ksweeney): Investigate making this use entry_point instead.
   source = OBSERVER_SOURCE,
+  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_tools',
   ]

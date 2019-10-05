@@ -35,6 +35,7 @@ python_library(
 python_binary(
   name = 'kaurora',
   entry_point = 'apache.aurora.client.cli.client:proxy_main',
+  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_kerberos',
   ],
@@ -43,6 +44,7 @@ python_binary(
 python_binary(
   name = 'kaurora_admin',
   entry_point = 'apache.aurora.admin.aurora_admin:proxy_main',
+  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_kerberos',
   ],
