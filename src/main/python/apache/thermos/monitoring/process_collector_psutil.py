@@ -84,7 +84,7 @@ class ProcessTreeCollector(object):
       # We require at least 2 generations of a process before we can calculate rate, so for all
       # current processes that were not running in the previous sample, compare to an empty sample
       if self._sampled_tree and last_stamp:
-        new = new_samples.values()
+        new = list(new_samples.values())
         old = [self._sampled_tree.get(pid, ProcessSample.empty()) for pid in new_samples.keys()]
         new_user_sys = sum(map(attrgetter('user'), new)) + sum(map(attrgetter('system'), new))
         old_user_sys = sum(map(attrgetter('user'), old)) + sum(map(attrgetter('system'), old))

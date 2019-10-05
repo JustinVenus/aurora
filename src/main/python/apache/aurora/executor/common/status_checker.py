@@ -31,7 +31,7 @@ class StatusResult(object):
 
   def __init__(self, reason, status):
     self._reason = reason
-    if status not in TaskState.values():
+    if status not in list(TaskState.values()):
       raise ValueError('Unknown task state: %r' % status)
     self._status = status
 

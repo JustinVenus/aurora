@@ -79,7 +79,7 @@ class ExecutorDetector(object):
   def find(cls, root, slave_id='*', framework_id='*', executor_id='*', run='*'):
     mixins = dict(
         root=root, slave_id=slave_id, framework_id=framework_id, executor_id=executor_id, run=run)
-    return filter(None, map(cls.match, glob.glob(os.path.join(*cls.PATTERN) % mixins)))
+    return [_f for _f in map(cls.match, glob.glob(os.path.join(*cls.PATTERN) % mixins)) if _f]
 
   def __init__(self, root=None):
     self.root = root or self.find_root(os.getcwd())

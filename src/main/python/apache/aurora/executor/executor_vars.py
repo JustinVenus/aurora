@@ -87,7 +87,7 @@ class ExecutorVars(Observable, ExceptionalThread):
       return False
 
     try:
-      child_stats = map(self.cpu_rss_pss, self.thermos_children(self._self))
+      child_stats = list(map(self.cpu_rss_pss, self.thermos_children(self._self)))
       self.write_metric('thermos_cpu', sum(stat[0] for stat in child_stats))
       self.write_metric('thermos_pss', sum(stat[2] for stat in child_stats))
     except psutil.Error:

@@ -15,7 +15,6 @@
 '''Library of utilities called by the aurora client binary
 '''
 
-from __future__ import print_function
 
 import functools
 import math

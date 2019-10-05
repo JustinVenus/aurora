@@ -13,7 +13,7 @@
 #
 
 import sys
-import thread
+import _thread
 import threading
 
 from twitter.common import app, log
@@ -40,7 +40,7 @@ class ExceptionTerminationHandler(app.Module):
           log.error("Unhandled error in %s. Interrupting main thread.", threading.current_thread())
           self._former_hook()(exc_type, value, trace)
         finally:
-          thread.interrupt_main()
+          _thread.interrupt_main()
 
     sys.excepthook = teardown_handler
 

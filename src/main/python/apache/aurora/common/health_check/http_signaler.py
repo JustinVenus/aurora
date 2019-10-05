@@ -24,9 +24,9 @@ if Compatibility.PY3:
   import urllib.request as urllib_request
   from urllib.error import URLError, HTTPError
 else:
-  from httplib import HTTPException
+  from http.client import HTTPException
   import urllib2 as urllib_request
-  from urllib2 import URLError, HTTPError
+  from urllib.error import URLError, HTTPError
 
 
 class HttpSignaler(object):

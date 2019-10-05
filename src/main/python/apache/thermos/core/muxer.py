@@ -33,7 +33,7 @@ class ProcessMuxer(object):
     self._pathspec = pathspec
 
   def __del__(self):
-    for fp in filter(None, self._processes.values()):
+    for fp in [_f for _f in self._processes.values() if _f]:
       fp.close()
 
   def register(self, process_name, watermark=0):
@@ -135,7 +135,7 @@ class ProcessMuxer(object):
     """
     self._bind_processes()
     updates = []
-    for handle in filter(None, self._processes.values()):
+    for handle in [_f for _f in self._processes.values() if _f]:
       try:
         fstat = os.fstat(handle.fileno())
       except OSError:

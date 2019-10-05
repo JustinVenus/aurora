@@ -17,7 +17,6 @@ An implementation of a "config" noun, for commands that
 operate in on configuration files.
 """
 
-from __future__ import print_function
 
 from apache.aurora.client.cli import EXIT_COMMAND_FAILURE, EXIT_OK, Noun, Verb
 from apache.aurora.client.cli.context import AuroraCommandContext

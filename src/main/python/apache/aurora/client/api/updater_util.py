@@ -82,8 +82,8 @@ class UpdaterConfig(object):
       return None
 
     ranges = set()
-    for _, group in groupby(enumerate(instances), lambda(element, position): element - position):
-      range_seq = map(itemgetter(1), group)
+    for _, group in groupby(enumerate(instances), lambda element, position: element - position):
+      range_seq = list(map(itemgetter(1), group))
       ranges.add(Range(first=range_seq[0], last=range_seq[-1]))
     return ranges
 

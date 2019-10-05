@@ -12,7 +12,6 @@
 # limitations under the License.
 #
 
-from __future__ import print_function
 
 from thrift.protocol import TJSONProtocol
 from thrift.TSerialization import serialize

@@ -31,8 +31,8 @@ def _read_chunk(filename, offset=None, length=None):
   length = length or -1
 
   try:
-    length = long(length)
-    offset = long(offset)
+    length = int(length)
+    offset = int(offset)
   except ValueError:
     return {}
 

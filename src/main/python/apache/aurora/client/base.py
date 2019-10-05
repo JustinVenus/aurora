@@ -16,7 +16,7 @@ import functools
 import optparse
 import sys
 from collections import defaultdict
-from urlparse import urljoin
+from urllib.parse import urljoin
 
 from twitter.common import log
 
@@ -110,7 +110,7 @@ def get_grouping_or_die(grouping_function):
     return GROUPING_FUNCTIONS[grouping_function]
   except KeyError:
     die('Unknown grouping function %s. Must be one of: %s'
-        % (grouping_function, GROUPING_FUNCTIONS.keys()))
+        % (grouping_function, list(GROUPING_FUNCTIONS.keys())))
 
 
 def group_hosts(hostnames, grouping_function=DEFAULT_GROUPING):

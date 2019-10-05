@@ -28,7 +28,6 @@ For example:
   $ aurora user get_quota mchucarroll
 '''
 
-from __future__ import print_function
 
 import argparse
 import logging
@@ -241,7 +240,7 @@ class CommandLine(AbstractClass):
   def registered_nouns(self):
     if self.nouns is None:
       self.register_nouns()
-    return self.nouns.keys()
+    return list(self.nouns.keys())
 
   def _setup(self, args):
     GlobalCommandHookRegistry.setup()

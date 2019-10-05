@@ -97,7 +97,7 @@ class TaskObserver(ExceptionalThread, Lockable):
   @property
   def all_tasks(self):
     """Return a dictionary of all Tasks known by the TaskObserver"""
-    return dict(self.active_tasks.items() + self.finished_tasks.items())
+    return dict(list(self.active_tasks.items()) + list(self.finished_tasks.items()))
 
   def stop(self):
     self._stop_event.set()
@@ -318,7 +318,7 @@ class TaskObserver(ExceptionalThread, Lockable):
             **task['resource_consumption'])
 
     return dict(
-      tasks=filter(None, map(task_row, tasks)),
+      tasks=[_f for _f in map(task_row, tasks) if _f],
       type=type,
       offset=offset,
       num=num,

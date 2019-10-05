@@ -15,7 +15,6 @@
 # The implementation of command hooks. See the design doc in docs/design/command-hooks.md for
 # details on what hooks are and how they work.
 
-from __future__ import print_function
 
 from abc import abstractmethod, abstractproperty
 

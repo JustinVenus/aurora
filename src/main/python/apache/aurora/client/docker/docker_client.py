@@ -12,7 +12,7 @@
 # limitations under the License.
 #
 
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 import requests
 from pystachio import Default, String

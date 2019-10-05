@@ -892,7 +892,7 @@ class TaskRunner(object):
       Returns True if any processes are in non-terminal states.
     """
     return any(not TaskRunnerHelper.is_process_terminal(run.state) for run in
-        filter(None, (self._current_process_run(process) for process in self.state.processes)))
+        [f for f in (self._current_process_run(process) for process in self.state.processes) if f])
 
   def collect_updates(self, timeout=None):
     """

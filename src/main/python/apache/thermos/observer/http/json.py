@@ -12,7 +12,7 @@
 # limitations under the License.
 #
 
-import urllib
+import urllib.parse
 
 from twitter.common.http import HttpServer
 
@@ -44,7 +44,7 @@ class TaskObserverJSONBindings(object):
     """
     task_ids = HttpServer.Request.GET.get('task_id', [])
     if task_ids:
-      task_ids = urllib.unquote(task_ids).split(',')
+      task_ids = urllib.parse.unquote(task_ids).split(',')
     return self._observer.tasks(task_ids)
 
   @HttpServer.route("/j/task/:task_id")
@@ -65,5 +65,5 @@ class TaskObserverJSONBindings(object):
     """
     task_ids = HttpServer.Request.GET.get('task_id', [])
     if task_ids:
-      task_ids = urllib.unquote(task_ids).split(',')
+      task_ids = urllib.parse.unquote(task_ids).split(',')
     return self._observer.processes(task_ids)

@@ -600,7 +600,7 @@ class PipedSubprocessExecutor(SubprocessExecutorBase):
     while rc is None or pipes:
       rc = self._popen.poll()
 
-      read_results, _, _ = select.select(pipes.keys(), [], [], 1)
+      read_results, _, _ = select.select(list(pipes.keys()), [], [], 1)
       for fd in read_results:
         handler = pipes[fd]
         buf = os.read(fd, self.READ_BUFFER_SIZE)

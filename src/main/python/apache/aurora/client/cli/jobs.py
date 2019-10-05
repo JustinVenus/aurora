@@ -12,7 +12,6 @@
 # limitations under the License.
 #
 
-from __future__ import print_function
 
 import json
 import logging
@@ -387,7 +386,7 @@ class AddCommand(Verb):
     resp = api.add_instances(job, instance, count)
     context.log_response_and_raise(resp)
 
-    wait_until(context.options.wait_until, job, api, range(start, start + count))
+    wait_until(context.options.wait_until, job, api, list(range(start, start + count)))
 
     if context.options.open_browser:
       webbrowser.open_new_tab(get_job_page(api, job))

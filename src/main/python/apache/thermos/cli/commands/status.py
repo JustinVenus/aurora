@@ -12,7 +12,6 @@
 # limitations under the License.
 #
 
-from __future__ import print_function
 
 import os
 import pwd
@@ -79,7 +78,7 @@ def status(args, options):
           ProcessState._VALUES_TO_NAMES.get(last_run.state, 'Unknown')))
       print()
 
-  matchers = map(re.compile, args or ['.*'])
+  matchers = list(map(re.compile, args or ['.*']))
 
   active = []
   finished = []

@@ -15,7 +15,7 @@ from __future__ import print_function
 
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from threading import Thread
-from urlparse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs
 
 import json
 import sys

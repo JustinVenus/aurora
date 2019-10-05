@@ -12,7 +12,6 @@
 # limitations under the License.
 #
 
-from __future__ import print_function
 
 import json
 import optparse
@@ -130,10 +129,10 @@ def query(args, options):
     return re.sub(r'%(\w+)%', convert, fmtstr)
 
   def flatten_task(t, d={}):
-    for key in t.__dict__.keys():
+    for key in list(t.__dict__.keys()):
       val = getattr(t, key)
       try:
-        val.__dict__.keys()
+        list(val.__dict__.keys())
       except AttributeError:
         d[key] = val
       else:

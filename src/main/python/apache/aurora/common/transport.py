@@ -20,10 +20,7 @@ from requests import exceptions as request_exceptions
 from thrift.transport.TTransport import TTransportBase, TTransportException
 from twitter.common import log
 
-try:
-  from urlparse import urlparse
-except ImportError:
-  from urllib.parse import urlparse
+from urllib.parse import urlparse
 
 
 DEFAULT_USER_AGENT = 'Python TRequestsTransport v1.0'
