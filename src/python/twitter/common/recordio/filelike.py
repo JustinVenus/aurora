@@ -22,21 +22,11 @@ import os
 from twitter.common import log
 
 
-# TODO(wickman) This needs to be py 3.x friendly.
 _VALID_STRINGIO_CLASSES = []
 
-from StringIO import StringIO
+from io import StringIO
 
-# The hoops jumped through here are because StringI and StringO are not
-# exposed directly in the stdlib.
 _VALID_STRINGIO_CLASSES.append(StringIO)
-
-try:
-  from cStringIO import StringIO
-  _VALID_STRINGIO_CLASSES.append(type(StringIO())) # cStringIO.StringI
-  _VALID_STRINGIO_CLASSES.append(type(StringIO('foo'))) # cStringIO.StringO
-except ImportError:
-  pass
 
 _VALID_STRINGIO_CLASSES = tuple(_VALID_STRINGIO_CLASSES)
 

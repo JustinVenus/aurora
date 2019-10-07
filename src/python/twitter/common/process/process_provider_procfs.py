@@ -4,7 +4,7 @@ from .process_handle_procfs import ProcessHandleProcfs
 from .process_provider import ProcessProvider
 
 def filter_map(fn, lst):
-  return filter(lambda return_value: return_value is not None, map(fn, lst))
+  return [return_value for return_value in map(fn, lst) if return_value is not None]
 
 class ProcessProvider_Procfs(ProcessProvider):
   """

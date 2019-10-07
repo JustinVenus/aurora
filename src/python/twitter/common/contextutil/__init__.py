@@ -177,7 +177,7 @@ def mutable_sys():
   ]
 
   _sys_backup = dict((key, getattr(sys, key)) for key in SAVED_ATTRIBUTES if hasattr(sys, key))
-  _sys_delete = set(filter(lambda key: not hasattr(sys, key), SAVED_ATTRIBUTES))
+  _sys_delete = set([key for key in SAVED_ATTRIBUTES if not hasattr(sys, key)])
 
   try:
     yield sys

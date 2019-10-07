@@ -74,7 +74,7 @@ class ProcessHandleParser(ScanfParser):
   def __init__(self, attrs, type_map, handlers = {}):
     self._attrs = attrs
     self._handlers = handlers
-    attr_list = map(type_map.get, attrs)
+    attr_list = list(map(type_map.get, attrs))
     ScanfParser.__init__(self, ' '.join(attr_list))
 
 

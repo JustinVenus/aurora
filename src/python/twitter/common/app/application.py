@@ -14,7 +14,6 @@
 # limitations under the License.
 # ==================================================================================================
 
-from __future__ import print_function
 
 try:
   import ConfigParser
@@ -603,7 +602,7 @@ class Application(object):
     """
       Return all valid commands registered by __main__
     """
-    return list(filter(None, self._commands.keys()))
+    return [_f for _f in self._commands.keys() if _f]
 
   def get_commands_and_docstrings(self):
     """

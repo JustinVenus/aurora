@@ -2,9 +2,7 @@ from abc import ABCMeta, abstractproperty
 from twitter.common.lang import Compatibility
 
 
-class NamedValue(object):
-  __metaclass__ = ABCMeta
-
+class NamedValue(object, metaclass=ABCMeta):
   def __init__(self, value):
     if isinstance(value, int):
       self._value = value if value in self.map else 0

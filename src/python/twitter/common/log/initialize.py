@@ -37,7 +37,6 @@ Google logging format.
 See twitter.com.log.options for customizations.
 """
 
-from __future__ import print_function
 
 import getpass
 import logging

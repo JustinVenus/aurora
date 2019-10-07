@@ -182,7 +182,7 @@ class TwitterOptionParser(object):
   def parse(self, argv=None):
     """ Parse argv.  If argv=None, use sys.argv[1:]. """
     parser = self._init_parser()
-    inherit_values = copy.deepcopy(self.values())
+    inherit_values = copy.deepcopy(list(self.values()))
     if isinstance(inherit_values, dict):
       inherit_values = Values(inherit_values)
     if argv is None:

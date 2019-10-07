@@ -21,7 +21,6 @@ Exports module-level options such as --log_dir and --stderr_log_level, but may b
 overridden locally before calling log.init().
 """
 
-from __future__ import print_function
 
 import logging
 import optparse
@@ -49,7 +48,7 @@ try:
   HAVE_APP = True
 except ImportError:
   from collections import namedtuple
-  DefaultLogOpts = namedtuple('DefaultLogOpts', _DEFAULT_LOG_OPTS.keys())
+  DefaultLogOpts = namedtuple('DefaultLogOpts', list(_DEFAULT_LOG_OPTS.keys()))
   class AppDefaultProxy(object):
     def __init__(self):
       self._opts = DefaultLogOpts(**_DEFAULT_LOG_OPTS)
@@ -392,7 +391,7 @@ class LogOptions(object):
 _LOGGING_HELP = """The level at which logging to %%s [default: %%%%default].
 Takes either LEVEL or scheme:LEVEL, where LEVEL is one
 of %s and scheme is one of %s.
-""" % (repr(LogOptions._LOG_LEVELS.keys()), repr(LogOptions._LOG_SCHEMES))
+""" % (repr(list(LogOptions._LOG_LEVELS.keys())), repr(LogOptions._LOG_SCHEMES))
 
 
 if HAVE_APP:

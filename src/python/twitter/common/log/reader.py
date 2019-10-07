@@ -36,7 +36,7 @@ class Buffer(object):
     self._tail = None
     self._infinite = infinite
 
-  def next(self):
+  def __next__(self):
     last_chunk = self.CHUNKSIZE
     while len(self._buffer) == 0 and last_chunk == self.CHUNKSIZE:
       tail_add = self._fp.read(self.CHUNKSIZE)
@@ -89,9 +89,9 @@ class Stream(object):
       else:
         return self.EOF
 
-  def next(self):
+  def __next__(self):
     while True:
-      line = self._buffer.next()
+      line = next(self._buffer)
       if line is None:
         return self._handle_end()
       tail = Line.parse_order(line, *self._parsers)
@@ -122,7 +122,7 @@ class StreamMuxer(object):
   def _collect(self):
     discard = set()
     for stream in self._refresh:
-      line = stream.next()
+      line = next(stream)
       if line is Stream.EOF:
         discard.add(stream)
       elif line is not None:
@@ -138,7 +138,7 @@ class StreamMuxer(object):
     except ValueError:
       pass
 
-  def next(self):
+  def __next__(self):
     """
       Returns (label, Line) pairs as they're available, None if nothing is available or Stream.EOF
       if all streams have terminated.

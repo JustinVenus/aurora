@@ -26,8 +26,9 @@ try:
 except ImportError:
   from collections import MutableSet
 
+
 class OrderedSet(MutableSet):
-  KEY, PREV, NEXT = range(3)
+  KEY, PREV, NEXT = list(range(3))
 
   def __init__(self, iterable=None):
     self.end = end = []

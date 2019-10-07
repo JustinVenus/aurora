@@ -66,7 +66,7 @@ class KazooGroup(GroupBase, GroupInterface):
     self.__listener_queue = []
     self.__queue_lock = threading.Lock()
     self._zk.add_listener(self.__state_listener)
-    self._path = '/' + '/'.join(filter(None, path.split('/')))  # normalize path
+    self._path = '/' + '/'.join([_f for _f in path.split('/') if _f])  # normalize path
     self._members = {}
     self._member_lock = threading.Lock()
     self._acl = self.translate_acl_list(acl)

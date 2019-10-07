@@ -30,7 +30,7 @@ class Group(GroupBase, GroupInterface):
 
   def __init__(self, zk, path, acl=None):
     self._zk = zk
-    self._path = '/' + '/'.join(filter(None, path.split('/')))  # normalize path
+    self._path = '/' + '/'.join([_f for _f in path.split('/') if _f])  # normalize path
     self._members = {}
     self._member_lock = threading.Lock()
     self._acl = acl or zk.DEFAULT_ACL
@@ -234,8 +234,8 @@ class Group(GroupBase, GroupInterface):
 
   def list(self):
     try:
-      return sorted(map(lambda znode: Membership(self.znode_to_id(znode)),
-          filter(self.znode_owned, self._zk.get_children(self._path))))
+      return sorted((Membership(self.znode_to_id(znode))
+          for znode in filter(self.znode_owned, self._zk.get_children(self._path))))
     except zookeeper.NoNodeException:
       return []
 

@@ -170,7 +170,7 @@ class Chroot(object):
     return all_files
 
   def labels(self):
-    return self.filesets.keys()
+    return list(self.filesets.keys())
 
   def __str__(self):
     return 'Chroot(%s {fs:%s})' % (self.chroot,

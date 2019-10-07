@@ -19,10 +19,7 @@ import sys
 import threading
 import traceback
 
-try:
-  import cStringIO as StringIO
-except ImportError:
-  import StringIO
+import io
 
 try:
   from twitter.common import app
@@ -62,7 +59,7 @@ class DiagnosticsEndpoints(object):
   def handle_profile(self):
     HttpServer.set_content_type('text/plain; charset=iso-8859-1')
     if HAS_APP and app.profiler() is not None:
-      output_stream = StringIO.StringIO()
+      output_stream = io.StringIO()
       stats = pstats.Stats(app.profiler(), stream=output_stream)
       stats.sort_stats('time', 'name')
       stats.print_stats()

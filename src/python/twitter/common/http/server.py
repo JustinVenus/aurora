@@ -194,7 +194,7 @@ class HttpServer(object):
       raise ValueError('No method %s.%s exists for bind_method!' % (
         self.source_name(class_instance), method_name))
     if isinstance(getattr(class_instance, method_name), types.MethodType):
-      method_self = getattr(class_instance, method_name).im_self
+      method_self = getattr(class_instance, method_name).__self__
       if method_self is None:
         # I attempted to allow for an unbound class pattern but failed.  The Python interpreter
         # allows for types.MethodType(cls.f, cls(), cls) to bind properly, but (cls.f, self, cls)

@@ -149,7 +149,7 @@ class Metrics(MetricRegistry, MetricProvider):
     return '.'.join([scope_name, sample_name])
 
   def sample(self):
-    samples = dict(filter(None, map(self.coerce_metric, self._metrics.items())))
+    samples = dict([_f for _f in map(self.coerce_metric, self._metrics.items()) if _f])
     for scope_name, scope in self._children.items():
       samples.update((self.sample_name(scope_name, sample_name), sample_value)
                      for (sample_name, sample_value) in scope.sample().items())

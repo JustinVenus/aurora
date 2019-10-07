@@ -227,7 +227,7 @@ class ZooKeeper(Observable):
   class Completion(object):
     def __init__(self, zk, function, *args, **kw):
       self._zk = zk
-      self._cid = random.randint(0, sys.maxint - 1)
+      self._cid = random.randint(0, sys.maxsize - 1)
       self._logger = kw.pop('logger', log.debug)
       @wraps(function)
       def wrapper(zh):
@@ -525,7 +525,7 @@ class ZooKeeper(Observable):
 
   def safe_create(self, path, acl=DEFAULT_ACL):
     child = '/'
-    for component in filter(None, path.split('/')):
+    for component in [_f for _f in path.split('/') if _f]:
       child = posixpath.join(child, component)
       try:
         self.create(child, "", acl, 0)

@@ -14,7 +14,6 @@
 # limitations under the License.
 # ==================================================================================================
 
-from __future__ import print_function
 
 import inspect
 import sys
@@ -81,7 +80,7 @@ class BasicExceptionHandler(object):
     # _current_frames not yet implemented on pypy and not guaranteed anywhere but
     # cpython in practice.
     if hasattr(sys, '_current_frames') and (len(sys._current_frames()) > 1 or
-        sys._current_frames().values()[0] != inspect.currentframe()):
+        list(sys._current_frames().values())[0] != inspect.currentframe()):
       # Multi-threaded
       ostr.write('\nAll threads:\n')
       for thread_id, stack in sys._current_frames().items():

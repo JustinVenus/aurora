@@ -16,7 +16,7 @@ import sys
 import os
 from os.path import dirname
 parent = dirname(os.path.abspath(__file__))
-for num in xrange(3):
+for num in range(3):
   parent = dirname(parent)
 sys.path.insert(0,parent)
 
@@ -52,8 +52,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'twitter.common (python)'
-copyright = u'Twitter'
+project = 'twitter.common (python)'
+copyright = 'Twitter'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

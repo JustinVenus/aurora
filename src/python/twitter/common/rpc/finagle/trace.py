@@ -33,7 +33,7 @@ class SpanId(object):
     if isinstance(value, str):
       if SpanId.HEX_REGEX.match(value):
         return SpanId(int(value, 16))
-    elif isinstance(value, (int, long)):
+    elif isinstance(value, int):
       return SpanId(value)
     elif isinstance(value, SpanId):
       return SpanId(value.value)
@@ -63,7 +63,7 @@ class TraceId(object):
     self.span_id = SpanId.from_value(span_id)
     self.sampled = bool(sampled)
 
-  def next(self):
+  def __next__(self):
     return TraceId(self.trace_id, self.span_id, TraceId.rand(), self.sampled)
 
   def __str__(self):
