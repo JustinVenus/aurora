@@ -26,7 +26,7 @@ class TwitterKazooClient(KazooClient, Observable):
   def make(cls, *args, **kw):
     # TODO(jcohen): Consider removing verbose option entirely in favor of just using loglevel.
     verbose = kw.pop('verbose', False)
-    async = kw.pop('async', True)
+    async_ = kw.pop('async', True)
 
     if verbose:
       loglevel = kw.pop('loglevel', logging.INFO)
@@ -38,7 +38,7 @@ class TwitterKazooClient(KazooClient, Observable):
     kw['logger'] = logger
 
     zk = cls(*args, **kw)
-    if async:
+    if async_:
       zk.start_async()
       zk.connecting.wait()
     else:
