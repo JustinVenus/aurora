@@ -28,7 +28,6 @@ python_library(
     '3rdparty/python:twitter.common.collections',
     '3rdparty/python:twitter.common.lang',
     '3rdparty/python:twitter.common.log',
-    '3rdparty/python:urllib3',
     'api/src/main/thrift/org/apache/aurora/gen',
   ],
   provides = setup_py(

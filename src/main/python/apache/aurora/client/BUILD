@@ -30,7 +30,6 @@ python_library(
     '3rdparty/python:twitter.common.log',
     '3rdparty/python:twitter.common.quantity',
     '3rdparty/python:twitter.common.zookeeper',
-    '3rdparty/python:urllib3',
     'api/src/main/thrift/org/apache/aurora/gen',
     'src/main/python/apache/aurora/common',
     'src/main/python/apache/aurora/client/cli:auroraversion',

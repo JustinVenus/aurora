@@ -36,3 +36,30 @@ python_requirement_library(
 )
 
 python_requirements()
+
+def twitter_common(library):
+  target(
+    name = 'twitter.common.{}'.format(library),
+    dependencies = [
+      'src/python/twitter/common/{0}:{0}'.format(library)
+    ]
+  )
+
+twitter_common('app')
+twitter_common('collections')
+twitter_common('concurrent')
+twitter_common('contextutil')
+twitter_common('decorators')
+twitter_common('dirutil')
+twitter_common('exceptions')
+twitter_common('http')
+twitter_common('lang')
+twitter_common('log')
+twitter_common('metrics')
+twitter_common('options')
+twitter_common('process')
+twitter_common('quantity')
+twitter_common('recordio')
+twitter_common('string')
+twitter_common('testing')
+twitter_common('zookeeper')

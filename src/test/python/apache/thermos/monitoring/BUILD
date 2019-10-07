@@ -25,7 +25,6 @@ python_tests(
     '3rdparty/python:twitter.common.contextutil',
     '3rdparty/python:twitter.common.dirutil',
     '3rdparty/python:twitter.common.quantity',
-    '3rdparty/python:urllib3',
     'src/main/python/apache/thermos/common',
     'src/main/python/apache/thermos/monitoring',
   ]
