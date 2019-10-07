@@ -14,11 +14,6 @@
 # limitations under the License.
 # ==================================================================================================
 
-java_thrift_library(
-  name = 'descriptors',
-  sources = globs('*.thrift'),
-)
-
 python_thrift_library(
   name = 'descriptors-py',
   sources = globs('*.thrift'),

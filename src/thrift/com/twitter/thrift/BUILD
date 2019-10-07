@@ -14,16 +14,6 @@
 # limitations under the License.
 # ==================================================================================================
 
-java_thrift_library(
-  name='thrift',
-  sources=globs('*.thrift'),
-  provides=artifact(
-    org='com.twitter.common',
-    name='service-thrift',
-    repo=public,
-  )
-)
-
 python_thrift_library(
   name='py-thrift',
   sources=globs('*.thrift'),

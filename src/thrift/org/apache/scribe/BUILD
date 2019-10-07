@@ -14,22 +14,6 @@
 # limitations under the License.
 # ==================================================================================================
 
-java_thrift_library(name = 'scribe_client-0.1.2',
-  provides = artifact(
-    org = 'org.apache.scribe',
-    name = 'scribe_client',
-    repo = public,
-  ),
-  sources = globs('0.1.2/*.thrift')
-)
-
-java_thrift_library(name = 'scribe_client-0.1.2-scala',
-  language='scala',
-  compiler='scrooge',
-  compiler_args=['--finagle'],
-  sources = globs('0.1.2/*.thrift')
-)
-
 python_thrift_library(
   name = 'py-scribe',
   sources = globs('0.1.2/*.thrift'),
