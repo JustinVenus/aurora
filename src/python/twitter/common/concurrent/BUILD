@@ -18,7 +18,6 @@ python_library(
   name = 'concurrent',
   sources = globs('*.py'),
   dependencies = [
-    '3rdparty/python:futures',
     'src/python/twitter/common/exceptions',
     'src/python/twitter/common/lang',
     'src/python/twitter/common/quantity'
