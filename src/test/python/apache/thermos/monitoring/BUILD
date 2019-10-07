@@ -15,6 +15,7 @@
 python_tests(
   name = 'monitoring',
   sources = globs('*.py'),
+  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     '3rdparty/python:certifi',
     '3rdparty/python:chardet',

@@ -15,6 +15,7 @@
 python_tests(
   name = 'docker',
   sources = globs('*py'),
+  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     '3rdparty/python:requests',
     '3rdparty/python:requests-mock',

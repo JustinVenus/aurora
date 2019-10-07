@@ -15,6 +15,7 @@
 python_tests(
   name = 'config',
   sources = globs('*.py'),
+  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     '3rdparty/python:twitter.common.collections',
     'src/main/python/apache/thermos/config',

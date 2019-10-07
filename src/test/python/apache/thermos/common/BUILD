@@ -15,6 +15,7 @@
 python_tests(
   name = 'common',
   sources = globs('*.py'),
+  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     '3rdparty/python:twitter.common.testing',
     'src/main/python/apache/thermos/common',
