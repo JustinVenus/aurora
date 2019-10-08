@@ -12,7 +12,7 @@
 # limitations under the License.
 #
 
-from mox import IgnoreArg, MoxTestBase
+from mox3.mox import IgnoreArg, MoxTestBase
 
 from apache.aurora.client.api.instance_watcher import InstanceWatcher
 from apache.aurora.client.api.restarter import Restarter, RestartSettings

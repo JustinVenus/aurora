@@ -14,7 +14,7 @@
 
 import unittest
 
-import mox
+from mox3 import mox
 
 from apache.aurora.client.api.health_check import HealthCheck, StatusHealthCheck
 

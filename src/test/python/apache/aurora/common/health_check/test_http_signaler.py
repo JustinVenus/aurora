@@ -15,7 +15,7 @@
 import unittest
 from socket import timeout as SocketTimeout
 
-import mox
+from mox3 import mox
 from twitter.common.lang import Compatibility
 
 from apache.aurora.common.health_check.http_signaler import HttpSignaler

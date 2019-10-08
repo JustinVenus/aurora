@@ -18,7 +18,7 @@ python_tests(
   compatibility = 'CPython>=3.6,<4',
   dependencies = [
     '3rdparty/python:mock',
-    '3rdparty/python:mox',
+    '3rdparty/python:mox3',
     'api/src/main/thrift/org/apache/aurora/gen',
     'src/main/python/apache/aurora/client',
     'src/main/python/apache/aurora/common',

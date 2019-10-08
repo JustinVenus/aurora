@@ -18,7 +18,7 @@ import unittest
 
 import mock
 import pytest
-from mox import IgnoreArg, IsA, Mox
+from mox3.mox import IgnoreArg, IsA, Mox
 from requests.auth import AuthBase
 from thrift.transport import TTransport
 from twitter.common.quantity import Amount, Time
