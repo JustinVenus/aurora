@@ -41,7 +41,7 @@ def twitter_common(library):
   target(
     name = 'twitter.common.{}'.format(library),
     dependencies = [
-      'src/python/twitter/common/{0}:{0}'.format(library)
+      '3rdparty/python/twitter/common/{0}:{0}'.format(library)
     ]
   )
 
@@ -67,6 +67,6 @@ twitter_common('zookeeper')
 target(
   name = 'twitter.common.recordio-thrift',
   dependencies = [
-    'src/python/twitter/common/recordio:recordio-thrift',
+    '3rdparty/python/twitter/common/recordio:recordio-thrift',
   ]
 )

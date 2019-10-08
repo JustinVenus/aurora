@@ -18,7 +18,7 @@ python_library(
   name = 'sourceonly',
   sources = globs('*.py'),
   dependencies = [
-    'src/python/twitter/common/lang',
+    '3rdparty/python/twitter/common/lang',
   ],
 )
 

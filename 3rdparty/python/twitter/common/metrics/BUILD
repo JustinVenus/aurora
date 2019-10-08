@@ -18,9 +18,9 @@ python_library(
   name = 'metrics',
   sources = rglobs('*.py'),
   dependencies = [
-    'src/python/twitter/common/exceptions',
-    'src/python/twitter/common/lang',
-    'src/python/twitter/common/quantity',
+    '3rdparty/python/twitter/common/exceptions',
+    '3rdparty/python/twitter/common/lang',
+    '3rdparty/python/twitter/common/quantity',
   ],
   provides = setup_py(
     name = 'twitter.common.metrics',

@@ -20,14 +20,14 @@ python_library(
   name = 'zookeeper',
   dependencies = [
     ':kazoo_client',
-    'src/python/twitter/common/zookeeper/group:kazoo_group',
-    'src/python/twitter/common/zookeeper/serverset:kazoo_serverset',
+    '3rdparty/python/twitter/common/zookeeper/group:kazoo_group',
+    '3rdparty/python/twitter/common/zookeeper/serverset:kazoo_serverset',
 
     # keep around zookeeper-old code until we can purge it forever.  do not use
     # these implementations!  use the kazoo implementations!
     ':zookeeper-old',
-    'src/python/twitter/common/zookeeper/group',
-    'src/python/twitter/common/zookeeper/serverset',
+    '3rdparty/python/twitter/common/zookeeper/group',
+    '3rdparty/python/twitter/common/zookeeper/serverset',
   ],
   provides = setup_py(
     name = 'twitter.common.zookeeper',
@@ -49,8 +49,8 @@ python_library(
   name = 'zookeeper-old',
   sources = ['client.py', 'constants.py', 'named_value.py'],
   dependencies = [
-    'src/python/twitter/common/log',
-    'src/python/twitter/common/metrics',
+    '3rdparty/python/twitter/common/log',
+    '3rdparty/python/twitter/common/metrics',
   ],
 )
 
@@ -59,7 +59,7 @@ python_library(
   sources = ['kazoo_client.py'],
   dependencies = [
     '3rdparty/python:kazoo',
-    'src/python/twitter/common/metrics',
+    '3rdparty/python/twitter/common/metrics',
   ]
 )
 
@@ -67,9 +67,9 @@ python_library(
   name = 'testing',
   sources = TEST_SERVER,
   dependencies = [
-    'src/python/twitter/common/contextutil',
-    'src/python/twitter/common/dirutil',
-    'src/python/twitter/common/rpc/finagle',
-    'src/thrift/com/twitter/common/zookeeper/testing/angrybird:py-thrift'
+    '3rdparty/python/twitter/common/contextutil',
+    '3rdparty/python/twitter/common/dirutil',
+    '3rdparty/python/twitter/common/rpc/finagle',
+    '3rdparty/thrift/com/twitter/common/zookeeper/testing/angrybird:py-thrift'
   ]
 )

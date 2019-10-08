@@ -23,7 +23,7 @@ from twitter.common.pants.python.commons.version import Version
 def build_file_aliases():
   return BuildFileAliases(
       objects={
-          'commons_version': Version('src/python/twitter/common/VERSION').version,
+          'commons_version': Version('3rdparty/python/twitter/common/VERSION').version,
       },
       context_aware_object_factories={
           'read_contents': read_contents_factory,

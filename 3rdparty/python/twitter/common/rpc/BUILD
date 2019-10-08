@@ -19,9 +19,9 @@ python_library(
   sources = globs('*.py'),
   dependencies = [
     '3rdparty/python:thrift',
-    'src/python/twitter/common/lang',
-    'src/python/twitter/common/rpc/sasl:sourceonly',
-    'src/python/twitter/common/rpc/transports:all',
+    '3rdparty/python/twitter/common/lang',
+    '3rdparty/python/twitter/common/rpc/sasl:sourceonly',
+    '3rdparty/python/twitter/common/rpc/transports:all',
   ],
   provides = setup_py(
     name = 'twitter.common.rpc',

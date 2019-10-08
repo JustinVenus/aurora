@@ -18,7 +18,7 @@ python_library(
   name = 'testing',
   sources = globs('*.py'),
   dependencies = [
-    'src/python/twitter/common/lang',
+    '3rdparty/python/twitter/common/lang',
   ],
   provides = setup_py(
     name = 'twitter.common.testing',

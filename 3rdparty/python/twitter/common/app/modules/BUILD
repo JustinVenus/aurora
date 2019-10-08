@@ -34,7 +34,7 @@ python_library(
   name = "exceptions",
   sources = ['exception_handler.py'],
   dependencies = [
-    'src/python/twitter/common/exceptions'
+    '3rdparty/python/twitter/common/exceptions'
   ],
 )
 
@@ -42,8 +42,8 @@ python_library(
   name = "scribe_exceptions",
   sources = ['scribe_exception_handler.py'],
   dependencies = [
-    'src/python/twitter/common/exceptions',
-    'src/thrift/org/apache/scribe:py-scribe',
+    '3rdparty/python/twitter/common/exceptions',
+    '3rdparty/thrift/org/apache/scribe:py-scribe',
   ]
 )
 
@@ -51,8 +51,8 @@ python_library(
   name = "http",
   sources = ['http.py'],
   dependencies = [
-    'src/python/twitter/common/exceptions',
-    'src/python/twitter/common/http'
+    '3rdparty/python/twitter/common/exceptions',
+    '3rdparty/python/twitter/common/http'
   ]
 )
 
@@ -60,7 +60,7 @@ python_library(
   name = "serverset",
   sources = ['serverset.py'],
   dependencies = [
-    'src/python/twitter/common/zookeeper/serverset'
+    '3rdparty/python/twitter/common/zookeeper/serverset'
   ]
 )
 
@@ -69,8 +69,8 @@ python_library(
   sources = ['varz.py'],
   dependencies = [
     ':http',
-    'src/python/twitter/common/lang',
-    'src/python/twitter/common/metrics',
-    'src/python/twitter/common/quantity',
+    '3rdparty/python/twitter/common/lang',
+    '3rdparty/python/twitter/common/metrics',
+    '3rdparty/python/twitter/common/quantity',
   ]
 )

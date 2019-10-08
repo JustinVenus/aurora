@@ -18,7 +18,7 @@ python_library(
   name = 'util',
   sources = globs('*.py'),
   dependencies = [
-    'src/python/twitter/common/contextutil'
+    '3rdparty/python/twitter/common/contextutil'
   ],
   provides = setup_py(
     name = 'twitter.common.util',

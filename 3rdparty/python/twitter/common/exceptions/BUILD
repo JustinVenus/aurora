@@ -18,8 +18,8 @@ python_library(
   name = 'exceptions',
   sources = rglobs('*.py'),
   dependencies = [
-    'src/python/twitter/common/decorators',
-    'src/python/twitter/common/lang'
+    '3rdparty/python/twitter/common/decorators',
+    '3rdparty/python/twitter/common/lang'
   ],
   provides = setup_py(
     name = 'twitter.common.exceptions',

@@ -18,9 +18,9 @@ python_library(
   name = 'process',
   sources = rglobs('*.py'),
   dependencies = [
-    'src/python/twitter/common/dirutil',
-    'src/python/twitter/common/lang',
-    'src/python/twitter/common/string',
+    '3rdparty/python/twitter/common/dirutil',
+    '3rdparty/python/twitter/common/lang',
+    '3rdparty/python/twitter/common/string',
   ],
   provides = setup_py(
     name = 'twitter.common.process',

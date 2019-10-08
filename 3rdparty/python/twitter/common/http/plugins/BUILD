@@ -26,7 +26,7 @@ python_library(
   name = 'echo',
   sources = ['echo.py'],
   dependencies = [
-    'src/python/twitter/common/http'
+    '3rdparty/python/twitter/common/http'
   ],
 )
 
@@ -34,8 +34,8 @@ python_library(
   name = 'kerberos',
   sources = ['kerberos.py'],
   dependencies = [
-    'src/python/twitter/common/contextutil',
-    'src/python/twitter/common/http',
+    '3rdparty/python/twitter/common/contextutil',
+    '3rdparty/python/twitter/common/http',
     '3rdparty/python:kerberos'
   ],
 )

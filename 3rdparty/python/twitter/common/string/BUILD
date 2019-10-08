@@ -18,7 +18,7 @@ python_library(
   name = "string",
   sources = rglobs("*.py"),
   dependencies = [
-    'src/python/twitter/common/lang'
+    '3rdparty/python/twitter/common/lang'
   ],
   provides = setup_py(
     name = 'twitter.common.string',
