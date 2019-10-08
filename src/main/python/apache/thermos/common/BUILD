@@ -22,6 +22,7 @@ python_library(
     '3rdparty/python:pystachio',
     '3rdparty/python:twitter.common.log',
     '3rdparty/python:twitter.common.recordio',
+    '3rdparty/python:twitter.common.recordio-thrift',
     'api/src/main/thrift/org/apache/aurora/gen',
     'api/src/main/thrift/org/apache/thermos'
   ],

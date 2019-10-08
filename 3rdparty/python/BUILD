@@ -63,3 +63,10 @@ twitter_common('recordio')
 twitter_common('string')
 twitter_common('testing')
 twitter_common('zookeeper')
+
+target(
+  name = 'twitter.common.recordio-thrift',
+  dependencies = [
+    'src/python/twitter/common/recordio:recordio-thrift',
+  ]
+)
