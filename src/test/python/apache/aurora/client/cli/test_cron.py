@@ -13,8 +13,8 @@
 #
 
 import contextlib
+from unittest.mock import call, patch
 
-from mock import call, patch
 from twitter.common.contextutil import temporary_file
 
 from apache.aurora.client.base import get_job_page

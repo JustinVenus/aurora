@@ -13,8 +13,7 @@
 #
 
 import os
-
-import mock
+from unittest import mock
 
 from apache.aurora.executor.common.executor_detector import ExecutorDetector
 from apache.aurora.executor.common.path_detector import MesosPathDetector

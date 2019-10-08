@@ -13,8 +13,7 @@
 #
 
 from inspect import getargspec
-
-from mock import Mock, create_autospec
+from unittest.mock import Mock, create_autospec
 
 from apache.aurora.client.api import AuroraClientAPI
 from apache.aurora.client.hooks.hooked_api import HookedAuroraClientAPI, NonHookedAuroraClientAPI

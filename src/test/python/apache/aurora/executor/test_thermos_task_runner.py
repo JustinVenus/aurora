@@ -20,10 +20,10 @@ import subprocess
 import sys
 import tempfile
 import time
+from unittest.mock import Mock, call, patch
 
 import pytest
 from mesos.interface import mesos_pb2
-from mock import Mock, call, patch
 from twitter.common import log
 from twitter.common.contextutil import temporary_dir
 from twitter.common.dirutil import safe_rmtree

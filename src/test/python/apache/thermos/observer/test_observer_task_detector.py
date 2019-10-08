@@ -15,8 +15,8 @@
 
 import random
 from contextlib import contextmanager
+from unittest import mock
 
-import mock
 import pytest
 
 from apache.thermos.monitoring.detector import PathDetector

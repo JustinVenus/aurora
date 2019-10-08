@@ -13,9 +13,8 @@
 #
 
 from threading import Event
-from unittest import TestCase
+from unittest import mock, TestCase
 
-import mock
 from mesos.interface import ExecutorDriver
 from twitter.common.quantity import Amount, Time
 

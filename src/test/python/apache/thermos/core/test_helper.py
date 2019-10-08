@@ -13,8 +13,8 @@
 #
 
 import time
+from unittest import mock
 
-import mock
 import psutil
 from twitter.common.quantity import Time
 

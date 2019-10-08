@@ -12,7 +12,7 @@
 # limitations under the License.
 #
 
-from mock import call, create_autospec, patch
+from unittest.mock import call, create_autospec, patch
 
 from apache.aurora.client.api.scheduler_client import SchedulerClient
 from apache.aurora.client.cli import EXIT_UNKNOWN_ERROR

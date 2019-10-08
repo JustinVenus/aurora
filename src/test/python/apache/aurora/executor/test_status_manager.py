@@ -13,9 +13,8 @@
 #
 
 import time
-from unittest import TestCase
+from unittest import mock, TestCase
 
-import mock
 from mesos.interface.mesos_pb2 import TaskState
 
 from apache.aurora.executor.common.status_checker import StatusChecker, StatusResult

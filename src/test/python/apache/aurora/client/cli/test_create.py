@@ -13,9 +13,9 @@
 #
 
 import contextlib
+from unittest.mock import Mock, call, create_autospec, patch
 
 import pytest
-from mock import Mock, call, create_autospec, patch
 from twitter.common.contextutil import temporary_file
 
 from apache.aurora.client.cli import (

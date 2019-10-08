@@ -13,8 +13,8 @@
 #
 
 import textwrap
+from unittest.mock import patch
 
-from mock import patch
 from twitter.common.contextutil import temporary_file
 
 from apache.aurora.client.cli import EXIT_COMMAND_FAILURE

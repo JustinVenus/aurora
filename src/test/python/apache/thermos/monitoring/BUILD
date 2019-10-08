@@ -21,7 +21,6 @@ python_tests(
     '3rdparty/python:chardet',
     '3rdparty/python:httpretty',
     '3rdparty/python:idna',
-    '3rdparty/python:mock',
     '3rdparty/python:requests',
     '3rdparty/python:twitter.common.contextutil',
     '3rdparty/python:twitter.common.dirutil',

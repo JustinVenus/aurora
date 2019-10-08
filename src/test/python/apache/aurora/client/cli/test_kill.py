@@ -14,9 +14,9 @@
 
 import contextlib
 import unittest
+from unittest.mock import Mock, call, patch
 
 import pytest
-from mock import Mock, call, patch
 
 from apache.aurora.client.api.job_monitor import JobMonitor
 from apache.aurora.client.cli import Context

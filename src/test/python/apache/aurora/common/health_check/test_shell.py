@@ -15,8 +15,8 @@
 import os
 import sys
 import unittest
+from unittest import mock
 
-import mock
 from subprocess import STDOUT
 
 from apache.aurora.common.health_check.shell import ShellHealthCheck

@@ -13,8 +13,8 @@
 #
 
 import contextlib
+from unittest.mock import Mock, patch
 
-from mock import Mock, patch
 from twitter.common.contextutil import temporary_file
 
 from apache.aurora.admin.host_maintenance import HostMaintenance

@@ -19,8 +19,8 @@ import random
 import StringIO
 import sys
 import time
+from unittest import mock
 
-import mock
 import pytest
 from twitter.common.contextutil import mutable_sys, temporary_dir
 from twitter.common.dirutil import chmod_plus_x, safe_mkdir

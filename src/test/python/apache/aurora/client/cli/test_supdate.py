@@ -13,10 +13,10 @@
 #
 import json
 import time
+from unittest import mock
+from unittest.mock import ANY, Mock, call, create_autospec, patch
 
-import mock
 import pytest
-from mock import ANY, Mock, call, create_autospec, patch
 from pystachio import Empty
 
 from apache.aurora.client.cli import (

@@ -12,7 +12,8 @@
 # limitations under the License.
 #
 
-from mock import patch
+from unittest.mock import patch
+
 from twitter.common.contextutil import temporary_file
 
 from apache.aurora.client.cli import ConfigurationPlugin

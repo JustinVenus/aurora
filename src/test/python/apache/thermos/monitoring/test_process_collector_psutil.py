@@ -12,7 +12,8 @@
 # limitations under the License.
 #
 
-import mock
+from unittest import mock
+
 import psutil
 
 from apache.thermos.monitoring.process import ProcessSample

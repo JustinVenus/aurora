@@ -15,8 +15,8 @@
 import inspect
 import time
 import unittest
+from unittest import mock
 
-import mock
 import pytest
 from mox3.mox import IgnoreArg, IsA, Mox
 from requests.auth import AuthBase

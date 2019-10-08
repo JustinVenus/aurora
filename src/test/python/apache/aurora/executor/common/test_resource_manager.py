@@ -12,7 +12,8 @@
 # limitations under the License.
 #
 
-import mock
+from unittest import mock
+
 from mesos.interface import mesos_pb2
 
 from apache.aurora.executor.common.resource_manager import ResourceManager

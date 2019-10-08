@@ -13,8 +13,7 @@
 #
 
 import contextlib
-
-from mock import PropertyMock, call, create_autospec, patch
+from unittest.mock import PropertyMock, call, create_autospec, patch
 
 from apache.aurora.admin.admin import (
     get_scheduler,

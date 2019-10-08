@@ -17,7 +17,6 @@ python_tests(
   sources = globs('*.py'),
   compatibility = 'CPython>=3.6,<4',
   dependencies = [
-    '3rdparty/python:mock',
     '3rdparty/python:twitter.common.contextutil',
     'src/main/python/apache/aurora/client',
     'src/test/python/apache/aurora',

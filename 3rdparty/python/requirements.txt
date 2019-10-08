@@ -24,7 +24,6 @@ jmespath==0.7.1
 kazoo==2.6.1
 kerberos==1.1.1
 mako==1.0.4
-mock==1.0.1
 mox3==0.28.0
 pex==1.2.15
 protobuf==3.5.1

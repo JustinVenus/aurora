@@ -14,9 +14,9 @@
 
 import contextlib
 import tempfile
+from unittest.mock import Mock, patch
 
 import pytest
-from mock import Mock, patch
 
 from apache.aurora.client.cli import EXIT_INVALID_PARAMETER, EXIT_OK, Context
 from apache.aurora.client.cli.client import AuroraCommandLine

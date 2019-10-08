@@ -14,8 +14,7 @@
 
 import contextlib
 import json
-
-from mock import patch
+from unittest.mock import patch
 
 from apache.aurora.client.cli.client import AuroraCommandLine
 from apache.aurora.config import AuroraConfig

@@ -14,8 +14,8 @@
 
 import os
 import threading
+from unittest import mock
 
-import mock
 from mesos.interface import mesos_pb2
 from twitter.common.contextutil import temporary_dir
 

@@ -22,8 +22,8 @@ import threading
 import time
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from collections import defaultdict
+from unittest import mock
 
-import mock
 from mesos.interface import mesos_pb2
 from thrift.TSerialization import serialize
 from twitter.common import log

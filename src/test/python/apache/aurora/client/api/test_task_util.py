@@ -13,8 +13,7 @@
 #
 
 import unittest
-
-from mock import call, create_autospec
+from unittest.mock import call, create_autospec
 
 from apache.aurora.client.api.task_util import StatusHelper
 

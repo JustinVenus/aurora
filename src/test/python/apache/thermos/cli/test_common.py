@@ -14,8 +14,8 @@
 
 import os
 from contextlib import contextmanager
+from unittest import mock
 
-import mock
 from twitter.common.contextutil import temporary_dir
 
 from apache.thermos.cli.common import get_task_from_options

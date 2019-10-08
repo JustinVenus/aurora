@@ -11,8 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+from unittest.mock import call, patch
+
 import pytest
-from mock import call, patch
 
 from apache.aurora.client.cli import Context
 from apache.aurora.client.cli.jobs import AddCommand

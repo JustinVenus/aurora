@@ -13,9 +13,8 @@
 #
 
 from time import time
-from unittest import TestCase
+from unittest import mock, TestCase
 
-import mock
 import pytest
 from twitter.common.quantity import Amount, Time
 

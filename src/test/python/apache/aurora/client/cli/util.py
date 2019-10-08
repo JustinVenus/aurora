@@ -14,8 +14,7 @@
 
 import textwrap
 import unittest
-
-from mock import Mock, create_autospec, patch
+from unittest.mock import Mock, create_autospec, patch
 
 from apache.aurora.client.cli.context import AuroraCommandContext
 from apache.aurora.client.hooks.hooked_api import HookedAuroraClientAPI

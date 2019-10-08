@@ -15,8 +15,7 @@
 
 import contextlib
 import os
-
-import mock
+from unittest import mock
 
 from apache.thermos.monitoring.detector import FixedPathDetector
 from apache.thermos.observer.http.file_browser import TaskObserverFileBrowser

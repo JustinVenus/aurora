@@ -14,12 +14,12 @@
 
 import json
 import threading
+from unittest.mock import MagicMock, call, create_autospec, patch
 
 import pytest
 from kazoo.client import KazooClient
 from kazoo.exceptions import KazooException
 from kazoo.security import ACL, Id, Permissions as KazooPermissions
-from mock import MagicMock, call, create_autospec, patch
 from twitter.common.contextutil import temporary_file
 from twitter.common.quantity import Amount, Time
 from twitter.common.testing.clock import ThreadedClock

@@ -14,8 +14,8 @@
 
 import contextlib
 from collections import defaultdict
+from unittest.mock import create_autospec, patch
 
-from mock import create_autospec, patch
 from twitter.common.contextutil import temporary_file
 
 from apache.aurora.admin.admin import sla_list_safe_domain, sla_probe_hosts

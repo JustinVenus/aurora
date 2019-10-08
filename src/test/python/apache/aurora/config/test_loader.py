@@ -16,8 +16,8 @@ import json
 import os
 import tempfile
 from io import BytesIO
+from unittest import mock
 
-import mock
 import pytest
 from twitter.common.contextutil import temporary_dir, temporary_file
 

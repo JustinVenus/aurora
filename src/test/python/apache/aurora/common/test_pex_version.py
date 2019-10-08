@@ -12,9 +12,9 @@
 # limitations under the License.
 #
 
+from unittest import mock
 from zipfile import BadZipfile
 
-import mock
 import pytest
 from pex.pex import PexInfo
 

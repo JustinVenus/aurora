@@ -17,8 +17,8 @@ import os.path
 import threading
 import time
 import unittest
+from unittest import mock
 
-import mock
 import pytest
 from mesos.interface.mesos_pb2 import TaskState
 from twitter.common.contextutil import temporary_dir

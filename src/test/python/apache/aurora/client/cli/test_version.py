@@ -12,10 +12,10 @@
 # limitations under the License.
 #
 
-from StringIO import StringIO
+from io import StringIO
+from unittest.mock import patch
 
 import pytest
-from mock import patch
 
 from apache.aurora.client.cli import __version__ as cli_version
 from apache.aurora.client.cli.client import AuroraCommandLine

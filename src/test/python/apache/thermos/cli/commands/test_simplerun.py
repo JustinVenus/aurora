@@ -13,8 +13,7 @@
 #
 
 import getpass
-
-import mock
+from unittest import mock
 
 from apache.thermos.cli.commands.simplerun import simplerun
 

@@ -13,8 +13,8 @@
 #
 
 from contextlib import contextmanager
+from unittest import mock
 
-import mock
 from twitter.common.quantity import Amount, Time
 
 from apache.aurora.config.schema.base import HttpLifecycleConfig, LifecycleConfig, MesosTaskInstance

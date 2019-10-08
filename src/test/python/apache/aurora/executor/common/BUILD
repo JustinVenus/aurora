@@ -18,7 +18,6 @@ python_tests(
   compatibility = 'CPython>=3.6,<4',
   dependencies = [
     '3rdparty/python:mesos.interface',
-    '3rdparty/python:mock',
     '3rdparty/python:twitter.common.contextutil',
     '3rdparty/python:twitter.common.dirutil',
     '3rdparty/python:twitter.common.quantity',

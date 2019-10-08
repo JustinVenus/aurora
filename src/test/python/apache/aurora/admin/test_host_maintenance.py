@@ -16,8 +16,8 @@ import copy
 import textwrap
 import unittest
 from contextlib import contextmanager
+from unittest import mock
 
-import mock
 from twitter.common import log
 from twitter.common.contextutil import temporary_file
 from twitter.common.quantity import Amount, Time

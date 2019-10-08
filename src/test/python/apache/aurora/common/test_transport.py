@@ -14,10 +14,10 @@
 
 import logging
 from threading import Thread
+from unittest.mock import ANY, Mock, call, create_autospec
 
 import pytest
 import requests
-from mock import ANY, Mock, call, create_autospec
 from requests import exceptions as request_exceptions
 from thrift.protocol import TBinaryProtocol
 from thrift.server import THttpServer

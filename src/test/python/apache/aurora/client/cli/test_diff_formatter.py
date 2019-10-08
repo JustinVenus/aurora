@@ -14,9 +14,9 @@
 
 import textwrap
 from copy import deepcopy
+from unittest.mock import Mock, call
 
 import pytest
-from mock import Mock, call
 from pystachio import Empty
 
 from apache.aurora.client.cli import Context

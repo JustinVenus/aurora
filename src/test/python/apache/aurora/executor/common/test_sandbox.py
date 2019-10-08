@@ -16,8 +16,8 @@ import grp
 import os
 import pwd
 import subprocess
+from unittest import mock
 
-import mock
 import pytest
 from twitter.common.contextutil import temporary_dir
 
