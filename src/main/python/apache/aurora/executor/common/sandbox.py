@@ -150,7 +150,7 @@ class DirectorySandbox(SandboxInterface):
         log.debug('DirectorySandbox: chown %s:%s %s' % (self._user, grent.gr_name, self.root))
         os.chown(self.root, pwent.pw_uid, pwent.pw_gid)
         log.debug('DirectorySandbox: chmod 700 %s' % self.root)
-        os.chmod(self.root, 0o700)
+        os.chmod(self.root, int('0700', 8))
       except (IOError, OSError) as e:
         raise self.CreationError('Failed to chown/chmod the sandbox: %s' % e)
 
@@ -187,7 +187,7 @@ class DockerDirectorySandbox(DirectorySandbox):
       # change the permissions on the host.
       # This is necessary since Mesos 1.6.0 (https://issues.apache.org/jira/browse/MESOS-8332).
       # TODO(rdelvalle): Find a cleaner solution for this problem.
-      os.chmod(os.environ['MESOS_SANDBOX'], 0o755)
+      os.chmod(os.environ['MESOS_SANDBOX'], int('0755', 8))
     except (IOError, OSError) as e:
       raise self.CreationError('Failed to create the sandbox root: %s' % e)
 

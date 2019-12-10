@@ -11,13 +11,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import os
-
 
 THERMOS_SOURCE = 'thermos.py'
 OBSERVER_SOURCE = 'thermos_observer.py'
 
-python_library(
+python2_library(
   name = '_tools',
   sources = rglobs('*.py', exclude=[[THERMOS_SOURCE], [OBSERVER_SOURCE]]),
   dependencies = [
@@ -33,7 +31,7 @@ python_library(
   ],
 )
 
-python_library(
+python2_library(
   name = '_thermos',
   sources = [THERMOS_SOURCE],
   dependencies = [
@@ -41,17 +39,16 @@ python_library(
   ],
 )
 
-python_binary(
+python2_binary(
   name = 'thermos',
   # TODO(ksweeney): Investigate making this use entry_point instead.
   source = THERMOS_SOURCE,
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_tools',
   ]
 )
 
-python_library(
+python2_library(
   name = '_thermos_observer',
   sources = [OBSERVER_SOURCE],
   dependencies = [
@@ -59,17 +56,16 @@ python_library(
   ],
 )
 
-python_binary(
+python2_binary(
   name = 'thermos_observer',
   # TODO(ksweeney): Investigate making this use entry_point instead.
   source = OBSERVER_SOURCE,
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_tools',
   ]
 )
 
-python_library(
+python2_library(
   name = 'tools',
   dependencies = [
     ':_thermos',
@@ -78,9 +74,75 @@ python_library(
   ],
   provides = setup_py(
     name = 'apache.aurora.tools',
-    version = open(os.path.join(get_buildroot(), '.auroraversion')).read().strip().upper(),
+    version = aurora_version(),
   ).with_binaries({
     'thermos': ':thermos',
     'thermos_observer': ':thermos_observer',
+  }),
+)
+
+python3_library(
+  name = '_tools3',
+  sources = rglobs('*.py', exclude=[[THERMOS_SOURCE], [OBSERVER_SOURCE]]),
+  dependencies = [
+    '3rdparty/python:CherryPy',
+    '3rdparty/python:twitter.common.app',
+    '3rdparty/python:twitter.common.exceptions',
+    '3rdparty/python:twitter.common.log',
+    'src/main/python/apache/aurora/executor:python3',
+    'src/main/python/apache/thermos/cli:python3',
+    'src/main/python/apache/thermos/common:python3',
+    'src/main/python/apache/thermos/monitoring:python3',
+    'src/main/python/apache/thermos/observer:python3',
+  ],
+)
+
+python3_library(
+  name = '_thermos3',
+  sources = [THERMOS_SOURCE],
+  dependencies = [
+    ':_tools3',
+  ],
+)
+
+python3_binary(
+  name = 'thermos3',
+  # TODO(ksweeney): Investigate making this use entry_point instead.
+  source = THERMOS_SOURCE,
+  dependencies = [
+    ':_tools3',
+  ]
+)
+
+python3_library(
+  name = '_thermos_observer3',
+  sources = [OBSERVER_SOURCE],
+  dependencies = [
+    ':_tools3',
+  ],
+)
+
+python3_binary(
+  name = 'thermos_observer3',
+  # TODO(ksweeney): Investigate making this use entry_point instead.
+  source = OBSERVER_SOURCE,
+  dependencies = [
+    ':_tools3',
+  ]
+)
+
+python3_library(
+  name = 'python3',
+  dependencies = [
+    ':_thermos3',
+    ':_thermos_observer3',
+    ':_tools3',
+  ],
+  provides = setup_py(
+    name = 'apache.aurora.tools',
+    version = aurora_version(),
+  ).with_binaries({
+    'thermos': ':thermos3',
+    'thermos_observer': ':thermos_observer3',
   }),
 )

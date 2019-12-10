@@ -19,6 +19,7 @@ Apache Aurora's checkstyle configuration.  This expects exactly one
 argument: the name of the file to modify with preferred import ordering.
 '''
 
+from __future__ import print_function
 
 import re
 import sys

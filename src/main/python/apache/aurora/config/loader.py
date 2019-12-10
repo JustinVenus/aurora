@@ -17,6 +17,7 @@ import json
 import pkgutil
 
 from pystachio.config import Config as PystachioConfig, FileExecutor, FilelikeExecutor
+from twitter.common.lang import Compatibility
 
 from apache.aurora.config.schema import base as base_schema
 
@@ -73,9 +74,9 @@ class AuroraConfigLoader(PystachioConfig):
     key = None
     if FileExecutor.matches(loadable):
       with open(loadable) as fp:
-        key = hashlib.md5(fp.read()).hexdigest()
+        key = hashlib.md5(Compatibility.to_bytes(fp.read())).hexdigest()
     elif FilelikeExecutor.matches(loadable):
-      key = hashlib.md5(loadable.read()).hexdigest()
+      key = hashlib.md5(Compatibility.to_bytes(loadable.read())).hexdigest()
       loadable.seek(0)
     return key
 

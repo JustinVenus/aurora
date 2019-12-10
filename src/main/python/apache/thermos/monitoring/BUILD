@@ -12,10 +12,8 @@
 # limitations under the License.
 #
 
-import os
 
-
-python_library(
+python2_library(
   name = 'monitoring',
   sources = rglobs('*.py'),
   dependencies = [
@@ -35,7 +33,32 @@ python_library(
   ],
   provides = setup_py(
     name = 'apache.thermos.monitoring',
-    version = open(os.path.join(get_buildroot(), '.auroraversion')).read().strip().upper(),
+    version = aurora_version(),
+    description = 'Thermos monitoring library.',
+  )
+)
+
+python3_library(
+  name = 'python3',
+  sources = rglobs('*.py'),
+  dependencies = [
+    '3rdparty/python:jmespath',
+    '3rdparty/python:psutil',
+    '3rdparty/python:twitter.common.collections',
+    '3rdparty/python:twitter.common.concurrent',
+    '3rdparty/python:twitter.common.dirutil',
+    '3rdparty/python:twitter.common.exceptions',
+    '3rdparty/python:twitter.common.lang',
+    '3rdparty/python:twitter.common.log',
+    '3rdparty/python:twitter.common.quantity',
+    '3rdparty/python:twitter.common.recordio',
+    '3rdparty/python:twitter.common.recordio-thrift',
+    'api/src/main/thrift/org/apache/thermos:python3',
+    'src/main/python/apache/thermos/common:python3',
+  ],
+  provides = setup_py(
+    name = 'apache.thermos.monitoring',
+    version = aurora_version(),
     description = 'Thermos monitoring library.',
   )
 )

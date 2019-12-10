@@ -267,6 +267,8 @@ class DomainUpTimeSlaVector(object):
     return filtered_percentage, total_count, filtered_vector
 
   def _init_mappings(self, count):
+    if isinstance(count, (list, tuple)):
+      count = len(list(count))  # this only seems to be needed on python3
     tasks_by_job = defaultdict(list)
     for task in self._tasks:
       if task.assignedTask.task.production:

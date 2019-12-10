@@ -35,7 +35,10 @@ from gen.apache.aurora.api import AuroraAdmin
 from gen.apache.aurora.api.constants import BYPASS_LEADER_REDIRECT_HEADER_NAME
 from gen.apache.aurora.api.ttypes import ResponseCode
 
-from urllib.parse import urljoin
+try:
+  from urlparse import urljoin
+except ImportError:
+  from urllib.parse import urljoin
 
 
 class SchedulerClientTrait(Cluster.Trait):

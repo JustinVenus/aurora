@@ -11,9 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import os
 
-python_library(
+python3_library(
   name = 'protocol',
   sources = [
     'protocol.py',
@@ -23,6 +22,6 @@ python_library(
   ],
   provides = setup_py(
     name = 'apache.aurora.thrift-protocol',
-    version = open(os.path.join(get_buildroot(), '.auroraversion')).read().strip().upper(),
+    version = aurora_version(),
   )
 )

@@ -16,7 +16,10 @@ import functools
 import optparse
 import sys
 from collections import defaultdict
-from urllib.parse import urljoin
+try:
+  from urllib.parse import urljoin
+except ImportError:
+  from urlparse import urljoin
 
 from twitter.common import log
 

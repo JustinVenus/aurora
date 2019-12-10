@@ -12,15 +12,12 @@
 # limitations under the License.
 #
 
-import os
-
-
 resources(
   name = 'ui',
   sources = zglobs('**/assets/*', '**/*.tpl'),
 )
 
-python_library(
+python2_library(
   name = 'observer',
   sources = rglobs('*.py'),
   dependencies = [
@@ -45,7 +42,37 @@ python_library(
   ],
   provides = setup_py(
     name = 'apache.thermos.observer',
-    version = open(os.path.join(get_buildroot(), '.auroraversion')).read().strip().upper(),
+    version = aurora_version(),
+    description = 'The Thermos observer web interface libraries.',
+  ),
+)
+
+python3_library(
+  name = 'python3',
+  sources = rglobs('*.py'),
+  dependencies = [
+    '3rdparty/python:bottle',
+    '3rdparty/python:mako',
+    '3rdparty/python:pex',
+    '3rdparty/python:pystachio',
+    '3rdparty/python:twitter.common.exceptions',
+    '3rdparty/python:twitter.common.http',
+    '3rdparty/python:twitter.common.lang',
+    '3rdparty/python:twitter.common.log',
+    '3rdparty/python:twitter.common.metrics',
+    '3rdparty/python:twitter.common.quantity',
+    'api/src/main/thrift/org/apache/thermos:python3',
+
+    # covering libraries
+    'src/main/python/apache/thermos/common:python3',
+    'src/main/python/apache/thermos/config:python3',
+    'src/main/python/apache/thermos/monitoring:python3',
+
+    ':ui',
+  ],
+  provides = setup_py(
+    name = 'apache.thermos.observer',
+    version = aurora_version(),
     description = 'The Thermos observer web interface libraries.',
   ),
 )

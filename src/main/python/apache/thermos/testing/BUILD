@@ -12,7 +12,7 @@
 # limitations under the License.
 #
 
-python_library(
+python2_library(
   name = 'testing',
   sources = rglobs('*.py'),
   dependencies = [
@@ -23,6 +23,21 @@ python_library(
     'src/main/python/apache/thermos/config',
     'src/main/python/apache/thermos/core',
     'api/src/main/thrift/org/apache/thermos',
+  ]
+  # NOTE: This is not exported as a setup-py because it's only depended-on by test code.
+)
+
+python3_library(
+  name = 'python3',
+  sources = rglobs('*.py'),
+  dependencies = [
+    '3rdparty/python:thrift',
+    '3rdparty/python:twitter.common.contextutil',
+    '3rdparty/python:twitter.common.log',
+    'src/main/python/apache/thermos/common:python3',
+    'src/main/python/apache/thermos/config:python3',
+    'src/main/python/apache/thermos/core:python3',
+    'api/src/main/thrift/org/apache/thermos:python3',
   ]
   # NOTE: This is not exported as a setup-py because it's only depended-on by test code.
 )

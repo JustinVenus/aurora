@@ -28,6 +28,7 @@ For example:
   $ aurora user get_quota mchucarroll
 '''
 
+from __future__ import print_function
 
 import argparse
 import logging

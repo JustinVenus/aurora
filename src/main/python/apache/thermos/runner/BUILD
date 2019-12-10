@@ -11,10 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import os
 
-
-python_library(
+python2_library(
   name = '_runner',
   sources = rglobs('*.py'),
   dependencies = [
@@ -26,24 +24,56 @@ python_library(
   ],
 )
 
-python_library(
+python2_library(
   name = 'runner',
   dependencies = [
     ':_runner',
   ],
   provides = setup_py(
     name = 'apache.thermos.runner',
-    version = open(os.path.join(get_buildroot(), '.auroraversion')).read().strip().upper(),
+    version = aurora_version(),
   ).with_binaries(
     thermos_runner = ':thermos_runner',
   ),
 )
 
-python_binary(
+python2_binary(
   name = 'thermos_runner',
   entry_point = 'apache.thermos.runner.thermos_runner',
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_runner',
+  ],
+)
+
+python3_library(
+  name = '_runner3',
+  sources = rglobs('*.py'),
+  dependencies = [
+    '3rdparty/python:twitter.common.app',
+    '3rdparty/python:twitter.common.log',
+    'src/main/python/apache/thermos/common:python3',
+    'src/main/python/apache/thermos/config:python3',
+    'src/main/python/apache/thermos/core:python3',
+  ],
+)
+
+python3_library(
+  name = 'python3',
+  dependencies = [
+    ':_runner3',
+  ],
+  provides = setup_py(
+    name = 'apache.thermos.runner',
+    version = aurora_version(),
+  ).with_binaries(
+    thermos_runner = ':thermos_runner3',
+  ),
+)
+
+python3_binary(
+  name = 'thermos_runner3',
+  entry_point = 'apache.thermos.runner.thermos_runner',
+  dependencies = [
+    ':_runner3',
   ],
 )

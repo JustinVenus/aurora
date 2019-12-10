@@ -12,8 +12,12 @@
 # limitations under the License.
 #
 
+import os
 import sys
-import _thread
+if os.name == 'posix' and sys.version_info[0] < 3:
+  import thread
+else:
+  import _thread as thread
 import threading
 
 from twitter.common import app, log
@@ -40,7 +44,7 @@ class ExceptionTerminationHandler(app.Module):
           log.error("Unhandled error in %s. Interrupting main thread.", threading.current_thread())
           self._former_hook()(exc_type, value, trace)
         finally:
-          _thread.interrupt_main()
+          thread.interrupt_main()
 
     sys.excepthook = teardown_handler
 

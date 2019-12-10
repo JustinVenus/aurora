@@ -11,10 +11,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import os
 
 
-python_library(
+python2_library(
   name = 'cli',
   sources = rglobs('*.py'),
   dependencies = [
@@ -31,6 +30,27 @@ python_library(
   ],
   provides = setup_py(
     name = 'apache.thermos.cli',
-    version = open(os.path.join(get_buildroot(), '.auroraversion')).read().strip().upper(),
+    version = aurora_version(),
+  )
+)
+
+python3_library(
+  name = 'python3',
+  sources = rglobs('*.py'),
+  dependencies = [
+    '3rdparty/python:pystachio',
+    '3rdparty/python:twitter.common.app',
+    '3rdparty/python:twitter.common.dirutil',
+    '3rdparty/python:twitter.common.log',
+    '3rdparty/python:twitter.common.recordio',
+    'api/src/main/thrift/org/apache/thermos:python3',
+    'src/main/python/apache/thermos/common:python3',
+    'src/main/python/apache/thermos/config:python3',
+    'src/main/python/apache/thermos/core:python3',
+    'src/main/python/apache/thermos/monitoring:python3',
+  ],
+  provides = setup_py(
+    name = 'apache.thermos.cli',
+    version = aurora_version(),
   )
 )

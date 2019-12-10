@@ -11,9 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import os
 
-python_library(
+python2_library(
   name = '_admin',
   sources = rglobs('*.py'),
   dependencies = [
@@ -27,24 +26,58 @@ python_library(
   ]
 )
 
-python_binary(
+python2_binary(
   name = 'aurora_admin',
   entry_point = 'apache.aurora.admin.aurora_admin:proxy_main',
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_admin',
   ]
 )
 
-python_library(
+python2_library(
   name = 'admin',
   dependencies = [
     ':_admin',
   ],
   provides = setup_py(
     name = 'apache.aurora.admin',
-    version = open(os.path.join(get_buildroot(), '.auroraversion')).read().strip().upper(),
+    version = aurora_version(),
   ).with_binaries({
     'aurora_admin': ':aurora_admin',
+  }),
+)
+
+python3_library(
+  name = '_admin3',
+  sources = rglobs('*.py'),
+  dependencies = [
+    '3rdparty/python:twitter.common.app',
+    '3rdparty/python:twitter.common.log',
+    '3rdparty/python:twitter.common.quantity',
+    'api/src/main/thrift/org/apache/aurora/gen:python3',
+    'src/main/python/apache/aurora/client:python3',
+    'src/main/python/apache/aurora/common:python3',
+    'src/main/python/apache/aurora/config:python3',
+  ]
+)
+
+python3_binary(
+  name = 'aurora_admin3',
+  entry_point = 'apache.aurora.admin.aurora_admin:proxy_main',
+  dependencies = [
+    ':_admin3',
+  ]
+)
+
+python3_library(
+  name = 'python3',
+  dependencies = [
+    ':_admin3',
+  ],
+  provides = setup_py(
+    name = 'apache.aurora.admin',
+    version = aurora_version(),
+  ).with_binaries({
+    'aurora_admin': ':aurora_admin3',
   }),
 )

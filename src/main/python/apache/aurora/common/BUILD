@@ -11,11 +11,36 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import os
 
 
-python_library(
+python2_library(
   name = 'common',
+  sources = rglobs('*.py'),
+  dependencies = [
+    '3rdparty/python:certifi',
+    '3rdparty/python:chardet',
+    '3rdparty/python:idna',
+    '3rdparty/python:pex',
+    '3rdparty/python:pystachio',
+    '3rdparty/python:requests',
+    '3rdparty/python:subprocess32',
+    '3rdparty/python:thrift',
+    '3rdparty/python:twitter.common.collections',
+    '3rdparty/python:twitter.common.lang',
+    '3rdparty/python:twitter.common.log',
+    '3rdparty/python:urllib3',
+    'api/src/main/thrift/org/apache/aurora/gen',
+  ],
+  provides = setup_py(
+    name = 'apache.aurora.common',
+    version = aurora_version(),
+    description = 'Aurora common libraries.',
+    license = 'Apache License, Version 2.0',
+  )
+)
+
+python3_library(
+  name = 'python3',
   sources = rglobs('*.py'),
   dependencies = [
     '3rdparty/python:certifi',
@@ -28,11 +53,11 @@ python_library(
     '3rdparty/python:twitter.common.collections',
     '3rdparty/python:twitter.common.lang',
     '3rdparty/python:twitter.common.log',
-    'api/src/main/thrift/org/apache/aurora/gen',
+    'api/src/main/thrift/org/apache/aurora/gen:python3',
   ],
   provides = setup_py(
     name = 'apache.aurora.common',
-    version = open(os.path.join(get_buildroot(), '.auroraversion')).read().strip().upper(),
+    version = aurora_version(),
     description = 'Aurora common libraries.',
     license = 'Apache License, Version 2.0',
   )

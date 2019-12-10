@@ -11,9 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-import os
 
-python_library(
+python2_library(
   name = 'kerberos_auth',
   sources = rglobs('*.py'),
   dependencies = [
@@ -22,7 +21,7 @@ python_library(
   ],
 )
 
-python_library(
+python2_library(
   name = '_kerberos',
   sources = rglobs('*.py'),
   dependencies = [
@@ -32,35 +31,83 @@ python_library(
   ],
 )
 
-python_binary(
+python2_binary(
   name = 'kaurora',
   entry_point = 'apache.aurora.client.cli.client:proxy_main',
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_kerberos',
   ],
 )
 
-python_binary(
+python2_binary(
   name = 'kaurora_admin',
   entry_point = 'apache.aurora.admin.aurora_admin:proxy_main',
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     ':_kerberos',
   ],
 )
 
-python_library(
+python2_library(
   name = 'kerberos',
   dependencies = [
     ':_kerberos',
   ],
   provides = setup_py(
     name = 'apache.aurora.kerberos',
-    version = open(os.path.join(get_buildroot(), '.auroraversion')).read().strip().upper(),
+    version = aurora_version(),
   ).with_binaries({
     # TODO(ksweeney): Reconsider these as separate binaries in favor of extras_require or plugins.
     'kaurora': ':kaurora',
     'kaurora_admin': ':kaurora_admin',
+  }),
+)
+
+python3_library(
+  name = 'kerberos_auth3',
+  sources = rglobs('*.py'),
+  dependencies = [
+    '3rdparty/python:requests-kerberos',
+    'src/main/python/apache/aurora/common:python3',
+  ],
+)
+
+python3_library(
+  name = '_kerberos3',
+  sources = rglobs('*.py'),
+  dependencies = [
+    ':kerberos_auth3',
+    'src/main/python/apache/aurora/admin:python3',
+    'src/main/python/apache/aurora/client:python3',
+  ],
+)
+
+python3_binary(
+  name = 'kaurora3',
+  entry_point = 'apache.aurora.client.cli.client:proxy_main',
+  dependencies = [
+    ':_kerberos3',
+  ],
+)
+
+python3_binary(
+  name = 'kaurora_admin3',
+  entry_point = 'apache.aurora.admin.aurora_admin:proxy_main',
+  dependencies = [
+    ':_kerberos3',
+  ],
+)
+
+python3_library(
+  name = 'python3',
+  dependencies = [
+    ':_kerberos3',
+  ],
+  provides = setup_py(
+    name = 'apache.aurora.kerberos',
+    version = aurora_version(),
+  ).with_binaries({
+    # TODO(ksweeney): Reconsider these as separate binaries in favor of extras_require or plugins.
+    'kaurora': ':kaurora3',
+    'kaurora_admin': ':kaurora_admin3',
   }),
 )

@@ -13,6 +13,7 @@
 #
 
 import os
+import sys
 from xml.sax.saxutils import escape
 
 import bottle
@@ -25,14 +26,19 @@ MB = 1024 * 1024
 DEFAULT_CHUNK_LENGTH = MB
 MAX_CHUNK_LENGTH = 16 * MB
 
+if os.name == 'posix' and sys.version_info[0] < 3:
+  BIG_INT = long
+else:
+  BIG_INT = int
+
 
 def _read_chunk(filename, offset=None, length=None):
   offset = offset or -1
   length = length or -1
 
   try:
-    length = int(length)
-    offset = int(offset)
+    length = BIG_INT(length)
+    offset = BIG_INT(offset)
   except ValueError:
     return {}
 

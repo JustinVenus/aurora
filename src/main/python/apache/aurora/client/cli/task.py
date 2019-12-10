@@ -15,6 +15,7 @@
 """Implementation of the Task noun for the Apache Aurora client.
 """
 
+from __future__ import print_function
 
 import os
 import subprocess
