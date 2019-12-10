@@ -12,12 +12,14 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'executor',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
+    '3rdparty/python/compat',
+    '3rdparty/python:futures',
     '3rdparty/python:mesos.interface',
+    '3rdparty/python:mock',
     '3rdparty/python:twitter.common.app',
     '3rdparty/python:twitter.common.contextutil',
     '3rdparty/python:twitter.common.dirutil',
@@ -29,5 +31,25 @@ python_tests(
     'src/main/python/apache/aurora/executor',
     'src/main/python/apache/thermos/core',
     'src/main/python/apache/thermos/monitoring',
+  ],
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*.py'),
+  dependencies = [
+    '3rdparty/python/compat',
+    '3rdparty/python:mesos.interface',
+    '3rdparty/python:twitter.common.app',
+    '3rdparty/python:twitter.common.contextutil',
+    '3rdparty/python:twitter.common.dirutil',
+    '3rdparty/python:twitter.common.exceptions',
+    '3rdparty/python:twitter.common.log',
+    '3rdparty/python:twitter.common.quantity',
+    'api/src/main/thrift/org/apache/aurora/gen:python3',
+    'src/main/python/apache/aurora/config:python3',
+    'src/main/python/apache/aurora/executor:python3',
+    'src/main/python/apache/thermos/core:python3',
+    'src/main/python/apache/thermos/monitoring:python3',
   ],
 )

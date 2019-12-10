@@ -12,7 +12,10 @@
 # limitations under the License.
 #
 import unittest
-from unittest.mock import create_autospec
+try:
+  from unittest.mock import create_autospec
+except ImportError:
+  from mock import create_autospec
 
 from apache.aurora.client.api import AuroraClientAPI
 from apache.aurora.common.aurora_job_key import AuroraJobKey

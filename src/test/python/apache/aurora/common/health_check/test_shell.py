@@ -15,18 +15,29 @@
 import os
 import sys
 import unittest
-from unittest import mock
-
-from subprocess import STDOUT
+try:
+  from unittest import mock
+except ImportError:
+  import mock
 
 from apache.aurora.common.health_check.shell import ShellHealthCheck
 
-import subprocess
+# Recommended pattern for Python 2 and 3 support from https://github.com/google/python-subprocess32
+# Backport which adds bug fixes and timeout support for Python 2.7
+if os.name == 'posix' and sys.version_info[0] < 3:
+  from subprocess32 import STDOUT
+  import subprocess32 as subprocess
+  CHECKOUTPUT = 'subprocess32.check_output'
+else:
+  # subprocess is included as part of Python standard lib in Python 3+.
+  from subprocess import STDOUT
+  import subprocess
+  CHECKOUTPUT = 'subprocess.check_output'
 
 
 class TestHealthChecker(unittest.TestCase):
 
-  @mock.patch('subprocess.check_output', autospec=True)
+  @mock.patch(CHECKOUTPUT, autospec=True)
   def test_health_check_ok(self, mock_popen):
     shell = ShellHealthCheck(raw_cmd='cmd', wrapped_cmd='wrapped-cmd', timeout_secs=30)
     success, msg = shell()
@@ -35,7 +46,7 @@ class TestHealthChecker(unittest.TestCase):
     mock_popen.assert_called_once_with(
       'wrapped-cmd', timeout=30, preexec_fn=mock.ANY, stderr=STDOUT)
 
-  @mock.patch('subprocess.check_output', autospec=True)
+  @mock.patch(CHECKOUTPUT, autospec=True)
   def test_health_check_failed(self, mock_popen):
     cmd = 'failed'
     wrapped_cmd = 'wrapped-failed'
@@ -49,7 +60,7 @@ class TestHealthChecker(unittest.TestCase):
     self.assertFalse(success)
     self.assertEqual(msg, "Command 'failed' returned non-zero exit status 1 with output 'No file.'")
 
-  @mock.patch('subprocess.check_output', autospec=True)
+  @mock.patch(CHECKOUTPUT, autospec=True)
   def test_health_check_timeout(self, mock_popen):
     # Fail due to command returning a non-0 exit status.
     mock_popen.side_effect = subprocess.TimeoutExpired('failed', timeout=30)
@@ -62,7 +73,7 @@ class TestHealthChecker(unittest.TestCase):
     self.assertFalse(success)
     self.assertEqual(msg, 'Health check timed out.')
 
-  @mock.patch('subprocess.check_output', autospec=True)
+  @mock.patch(CHECKOUTPUT, autospec=True)
   def test_health_check_os_error(self, mock_popen):
     # Fail due to command not existing.
     mock_popen.side_effect = OSError(1, 'failed')
@@ -74,7 +85,7 @@ class TestHealthChecker(unittest.TestCase):
     self.assertFalse(success)
     self.assertEqual(msg, 'OSError: failed')
 
-  @mock.patch('subprocess.check_output', autospec=True)
+  @mock.patch(CHECKOUTPUT, autospec=True)
   def test_health_check_value_error(self, mock_popen):
     # Invalid commmand passed in raises ValueError.
     mock_popen.side_effect = ValueError('Could not read command.')

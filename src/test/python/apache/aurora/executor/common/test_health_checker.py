@@ -17,13 +17,17 @@ import os.path
 import threading
 import time
 import unittest
-from unittest import mock
+try:
+  from unittest import mock
+except ImportError:
+  import mock
 
 import pytest
 from mesos.interface.mesos_pb2 import TaskState
 from twitter.common.contextutil import temporary_dir
 from twitter.common.dirutil import chmod_plus_x
 from twitter.common.exceptions import ExceptionalThread
+from twitter.common.lang import Compatibility
 from twitter.common.testing.clock import ThreadedClock
 
 from apache.aurora.common.health_check.http_signaler import HttpSignaler
@@ -45,6 +49,10 @@ from .fixtures import HELLO_WORLD, MESOS_JOB
 
 from gen.apache.aurora.api.ttypes import AssignedTask, ExecutorConfig, JobKey, TaskConfig
 
+if Compatibility.PY2:
+  THREADING_EVENT_IS_SET = threading._Event.is_set
+else:
+  THREADING_EVENT_IS_SET = threading.Event.is_set
 FAKE_MESOS_CONTAINERIZER_BINARY = '''#!/bin/sh
 if [[ $# == 1 ]]; then
   echo "command_info" >&2
@@ -960,7 +968,7 @@ class TestThreadedHealthChecker(unittest.TestCase):
 
   def test_run_success(self):
     self.health.return_value = (True, 'success')
-    mock_is_set = mock.Mock(spec=threading._Event.is_set)
+    mock_is_set = mock.Mock(spec=THREADING_EVENT_IS_SET)
     liveness = [False, False, False, True]
     mock_is_set.side_effect = lambda: liveness.pop(0)
     self.health_checker.threaded_health_checker.dead.is_set = mock_is_set
@@ -974,7 +982,7 @@ class TestThreadedHealthChecker(unittest.TestCase):
 
   def test_run_failure(self):
     self.health.return_value = (False, 'failure')
-    mock_is_set = mock.Mock(spec=threading._Event.is_set)
+    mock_is_set = mock.Mock(spec=THREADING_EVENT_IS_SET)
     liveness = [False, False, False, False, True]
     mock_is_set.side_effect = lambda: liveness.pop(0)
     self.health_checker.threaded_health_checker.dead.is_set = mock_is_set
@@ -989,7 +997,7 @@ class TestThreadedHealthChecker(unittest.TestCase):
   def test_run_failure_unhealthy_when_failfast(self):
     health_status = [(False, 'failure-1'), (True, None), (False, 'failure-3'), (False, 'failure-4')]
     self.health.side_effect = lambda: health_status.pop(0)
-    mock_is_set = mock.Mock(spec=threading._Event.is_set)
+    mock_is_set = mock.Mock(spec=THREADING_EVENT_IS_SET)
     liveness = [False, False, False, False, True]
     mock_is_set.side_effect = lambda: liveness.pop(0)
     self.health_checker.threaded_health_checker.dead.is_set = mock_is_set
@@ -1004,7 +1012,7 @@ class TestThreadedHealthChecker(unittest.TestCase):
   def test_run_unhealthy_after_callback(self):
     health_status = [(True, None), (True, None), (False, 'failure-4'), (False, 'failure-5')]
     self.health.side_effect = lambda: health_status.pop(0)
-    mock_is_set = mock.Mock(spec=threading._Event.is_set)
+    mock_is_set = mock.Mock(spec=THREADING_EVENT_IS_SET)
     liveness = [False, False, False, False, True]
     mock_is_set.side_effect = lambda: liveness.pop(0)
     self.health_checker.threaded_health_checker.dead.is_set = mock_is_set
@@ -1199,7 +1207,7 @@ class TestThreadedHealthCheckerWithDefaults(unittest.TestCase):
   def test_run_success(self, mock_sleep):
     mock_sleep.return_value = None
     self.health.return_value = (True, 'success')
-    mock_is_set = mock.Mock(spec=threading._Event.is_set)
+    mock_is_set = mock.Mock(spec=THREADING_EVENT_IS_SET)
     liveness = [False, False, False, True]
     mock_is_set.side_effect = lambda: liveness.pop(0)
     self.health_checker.threaded_health_checker.dead.is_set = mock_is_set
@@ -1215,7 +1223,7 @@ class TestThreadedHealthCheckerWithDefaults(unittest.TestCase):
   def test_run_failure(self, mock_sleep):
     mock_sleep.return_value = None
     self.health.return_value = (False, 'failure')
-    mock_is_set = mock.Mock(spec=threading._Event.is_set)
+    mock_is_set = mock.Mock(spec=THREADING_EVENT_IS_SET)
     liveness = [False, False, False, True]
     mock_is_set.side_effect = lambda: liveness.pop(0)
     self.health_checker.threaded_health_checker.dead.is_set = mock_is_set
@@ -1232,7 +1240,7 @@ class TestThreadedHealthCheckerWithDefaults(unittest.TestCase):
     mock_sleep.return_value = None
     health_status = [(False, 'failure-1'), (False, 'failure-2'), (True, None)]
     self.health.side_effect = lambda: health_status.pop(0)
-    mock_is_set = mock.Mock(spec=threading._Event.is_set)
+    mock_is_set = mock.Mock(spec=THREADING_EVENT_IS_SET)
     liveness = [False, False, False, True]
     mock_is_set.side_effect = lambda: liveness.pop(0)
     self.health_checker.threaded_health_checker.dead.is_set = mock_is_set
@@ -1249,7 +1257,7 @@ class TestThreadedHealthCheckerWithDefaults(unittest.TestCase):
     mock_sleep.return_value = None
     health_status = [(True, None), (False, 'failure-2'), (False, 'failure-3')]
     self.health.side_effect = lambda: health_status.pop(0)
-    mock_is_set = mock.Mock(spec=threading._Event.is_set)
+    mock_is_set = mock.Mock(spec=THREADING_EVENT_IS_SET)
     liveness = [False, False, False, True]
     mock_is_set.side_effect = lambda: liveness.pop(0)
     self.health_checker.threaded_health_checker.dead.is_set = mock_is_set
@@ -1266,7 +1274,7 @@ class TestThreadedHealthCheckerWithDefaults(unittest.TestCase):
     mock_sleep.return_value = None
     health_status = [(False, 'failure-1'), (False, 'failure-2'), (False, 'failure-3')]
     self.health.side_effect = lambda: health_status.pop(0)
-    mock_is_set = mock.Mock(spec=threading._Event.is_set)
+    mock_is_set = mock.Mock(spec=THREADING_EVENT_IS_SET)
     liveness = [False, False, False, True]
     mock_is_set.side_effect = lambda: liveness.pop(0)
     self.health_checker.threaded_health_checker.dead.is_set = mock_is_set
@@ -1283,7 +1291,7 @@ class TestThreadedHealthCheckerWithDefaults(unittest.TestCase):
     mock_sleep.return_value = None
     health_status = [(True, None), (True, None), (False, 'failure-4'), (False, 'failure-5')]
     self.health.side_effect = lambda: health_status.pop(0)
-    mock_is_set = mock.Mock(spec=threading._Event.is_set)
+    mock_is_set = mock.Mock(spec=THREADING_EVENT_IS_SET)
     liveness = [False, False, False, False, True]
     mock_is_set.side_effect = lambda: liveness.pop(0)
     self.health_checker.threaded_health_checker.dead.is_set = mock_is_set

@@ -12,7 +12,6 @@
 # limitations under the License.
 #
 
-import contextlib
 import getpass
 import os
 import signal
@@ -20,9 +19,13 @@ import subprocess
 import sys
 import tempfile
 import time
-from unittest.mock import Mock, call, patch
+try:
+  from unittest.mock import Mock, call, patch
+except ImportError:
+  from mock import Mock, call, patch
 
 import pytest
+from compat import contextlib
 from mesos.interface import mesos_pb2
 from twitter.common import log
 from twitter.common.contextutil import temporary_dir

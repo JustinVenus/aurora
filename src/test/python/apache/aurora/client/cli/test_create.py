@@ -12,11 +12,15 @@
 # limitations under the License.
 #
 
-import contextlib
-from unittest.mock import Mock, call, create_autospec, patch
+try:
+  from unittest.mock import Mock, call, create_autospec, patch
+except ImportError:
+  from mock import Mock, call, create_autospec, patch
 
 import pytest
+from compat import contextlib
 from twitter.common.contextutil import temporary_file
+from twitter.common.lang import Compatibility
 
 from apache.aurora.client.cli import (
     EXIT_COMMAND_FAILURE,
@@ -40,6 +44,8 @@ from gen.apache.aurora.api.ttypes import (
     ScheduleStatusResult,
     TaskQuery
 )
+
+THREADING_EVENT_WAIT = 'threading.{}Event.wait'.format('_' if Compatibility.PY2 else '')
 
 
 class UnknownException(Exception):
@@ -123,7 +129,7 @@ class TestClientCreateCommand(AuroraClientCommandTest):
     with contextlib.nested(
         # TODO(maxim): Patching threading.Event with all possible namespace/patch/mock
         #              combinations did not produce the desired effect. Investigate why (AURORA-510)
-        patch('threading._Event.wait'),
+        patch(THREADING_EVENT_WAIT),
         patch('apache.aurora.client.cli.jobs.Job.create_context', return_value=mock_context)):
       # After making the client, create sets up a job monitor.
       # The monitor uses TaskQuery to get the tasks. It's called at least twice:once before
@@ -155,7 +161,7 @@ class TestClientCreateCommand(AuroraClientCommandTest):
     with contextlib.nested(
         # TODO(maxim): Patching threading.Event with all possible namespace/patch/mock
         #              combinations did not produce the desired effect. Investigate why (AURORA-510)
-        patch('threading._Event.wait'),
+        patch(THREADING_EVENT_WAIT),
         patch('apache.aurora.client.cli.jobs.Job.create_context', return_value=mock_context)):
       mock_query = self.create_query()
       mock_context.add_expected_status_query_result(
@@ -186,7 +192,7 @@ class TestClientCreateCommand(AuroraClientCommandTest):
     """
     mock_context = FakeAuroraCommandContext()
     with contextlib.nested(
-        patch('threading._Event.wait'),
+        patch(THREADING_EVENT_WAIT),
         patch('apache.aurora.client.cli.jobs.Job.create_context', return_value=mock_context)):
       mock_query = self.create_query()
       for result in [ScheduleStatus.PENDING, ScheduleStatus.PENDING, ScheduleStatus.RUNNING]:
@@ -282,7 +288,7 @@ class TestClientCreateCommand(AuroraClientCommandTest):
     """
     mock_context = FakeAuroraCommandContext()
     with contextlib.nested(
-        patch('threading._Event.wait'),
+        patch(THREADING_EVENT_WAIT),
         patch('apache.aurora.client.cli.jobs.Job.create_context', return_value=mock_context)):
       mock_context.add_expected_status_query_result(
         self.create_mock_status_query_result(ScheduleStatus.PENDING))
@@ -308,7 +314,7 @@ class TestClientCreateCommand(AuroraClientCommandTest):
   def test_create_job_startup_fails(self):
     mock_context = FakeAuroraCommandContext()
     with contextlib.nested(
-        patch('threading._Event.wait'),
+        patch(THREADING_EVENT_WAIT),
         patch('apache.aurora.client.cli.jobs.Job.create_context', return_value=mock_context)):
       mock_context.add_expected_status_query_result(
         self.create_mock_status_query_result(ScheduleStatus.PENDING))
@@ -364,7 +370,7 @@ class TestClientCreateCommand(AuroraClientCommandTest):
 
     mock_context = FakeAuroraCommandContext()
     with contextlib.nested(
-        patch('threading._Event.wait'),
+        patch(THREADING_EVENT_WAIT),
         patch('apache.aurora.client.cli.jobs.Job.create_context', return_value=mock_context)):
       mock_query = self.create_query()
       mock_context.add_expected_status_query_result(
@@ -398,7 +404,7 @@ class TestClientCreateCommand(AuroraClientCommandTest):
 
     mock_context = FakeAuroraCommandContext()
     with contextlib.nested(
-        patch('threading._Event.wait'),
+        patch(THREADING_EVENT_WAIT),
         patch('apache.aurora.client.cli.jobs.Job.create_context', return_value=mock_context)):
 
       # This is the real test: invoke create as if it had been called by the command line.

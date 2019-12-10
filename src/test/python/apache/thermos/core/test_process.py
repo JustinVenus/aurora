@@ -16,14 +16,17 @@ import grp
 import os
 import pwd
 import random
-import StringIO
 import sys
 import time
-from unittest import mock
+try:
+  from unittest import mock
+except ImportError:
+  import mock
 
 import pytest
 from twitter.common.contextutil import mutable_sys, temporary_dir
 from twitter.common.dirutil import chmod_plus_x, safe_mkdir
+from twitter.common.lang import Compatibility
 from twitter.common.quantity import Amount, Data
 from twitter.common.recordio import ThriftRecordReader
 
@@ -393,8 +396,8 @@ def test_preserve_env(*mocks):
 
 
 def test_tee_class():
-  fileout = StringIO.StringIO()
-  stdout = StringIO.StringIO()
+  fileout = Compatibility.StringIO()
+  stdout = Compatibility.StringIO()
   tee = TeeHandler(fileout, stdout)
 
   tee.write("TEST")

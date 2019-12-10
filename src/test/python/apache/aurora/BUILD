@@ -12,11 +12,20 @@
 # limitations under the License.
 #
 
-python_library(
+python2_library(
   name = 'aurora',
   sources = [ 'api_util.py' ],
   dependencies = [
     'api/src/main/thrift/org/apache/aurora/gen',
     'src/main/python/apache/aurora/client',
+  ]
+)
+
+python3_library(
+  name = 'python3',
+  sources = [ 'api_util.py' ],
+  dependencies = [
+    'api/src/main/thrift/org/apache/aurora/gen:python3',
+    'src/main/python/apache/aurora/client:python3',
   ]
 )

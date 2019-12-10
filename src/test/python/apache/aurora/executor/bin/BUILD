@@ -12,11 +12,20 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'bin',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
+    '3rdparty/python:futures',
+    '3rdparty/python:mock',
     'src/main/python/apache/aurora/executor',
+  ],
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*.py'),
+  dependencies = [
+    'src/main/python/apache/aurora/executor:python3',
   ],
 )

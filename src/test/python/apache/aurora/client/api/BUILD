@@ -12,15 +12,30 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'api',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
-    '3rdparty/python:mox3',
+    '3rdparty/python:futures',
+    '3rdparty/python:mock',
+    '3rdparty/python:mox',
     'api/src/main/thrift/org/apache/aurora/gen',
     'src/main/python/apache/aurora/client',
     'src/main/python/apache/aurora/common',
+    'src/test/python/apache/aurora',
     'src/test/python/apache/aurora/client:lib_fake_scheduler_proxy',
+  ],
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*.py'),
+  dependencies = [
+    '3rdparty/python:mox3',
+    'api/src/main/thrift/org/apache/aurora/gen:python3',
+    'src/main/python/apache/aurora/client:python3',
+    'src/main/python/apache/aurora/common:python3',
+    'src/test/python/apache/aurora:python3',
+    'src/test/python/apache/aurora/client:lib_fake_scheduler_proxy.py3',
   ],
 )

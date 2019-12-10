@@ -12,7 +12,6 @@
 # limitations under the License.
 #
 
-import contextlib
 import getpass
 import os
 import signal
@@ -22,8 +21,12 @@ import threading
 import time
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 from collections import defaultdict
-from unittest import mock
+try:
+  from unittest import mock
+except ImportError:
+  import mock
 
+from compat import contextlib
 from mesos.interface import mesos_pb2
 from thrift.TSerialization import serialize
 from twitter.common import log

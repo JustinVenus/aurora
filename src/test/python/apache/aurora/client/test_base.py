@@ -12,7 +12,10 @@
 # limitations under the License.
 #
 import unittest
-from unittest import mock
+try:
+  from unittest import mock
+except ImportError:
+  import mock
 
 from apache.aurora.client import base
 from apache.aurora.common.pex_version import UnknownVersion

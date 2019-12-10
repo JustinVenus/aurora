@@ -16,10 +16,14 @@ import copy
 import textwrap
 import unittest
 from contextlib import contextmanager
-from unittest import mock
+try:
+  from unittest import mock
+except ImportError:
+  import mock
 
 from twitter.common import log
 from twitter.common.contextutil import temporary_file
+from twitter.common.lang import Compatibility
 from twitter.common.quantity import Amount, Time
 
 from apache.aurora.admin.host_maintenance import HostMaintenance
@@ -38,6 +42,7 @@ from gen.apache.aurora.api.ttypes import (
     StartMaintenanceResult
 )
 
+THREADING_EVENT_WAIT = 'threading.{}Event.wait'.format('_' if Compatibility.PY2 else '')
 DEFAULT_CLUSTER = Cluster(
     name='us-west',
     scheduler_uri='us-west-234.example.com:8888',
@@ -53,7 +58,7 @@ class TestHostMaintenance(unittest.TestCase):
       spec=AuroraClientAPI.maintenance_status)
   @mock.patch("apache.aurora.client.api.AuroraClientAPI.drain_hosts",
       spec=AuroraClientAPI.drain_hosts)
-  @mock.patch("threading._Event.wait")
+  @mock.patch(THREADING_EVENT_WAIT)
   def test_drain_hosts(self, mock_event_wait, mock_drain_hosts, mock_maintenance_status):
     fake_maintenance_status_response = [
         Response(
@@ -109,7 +114,7 @@ class TestHostMaintenance(unittest.TestCase):
               spec=AuroraClientAPI.maintenance_status)
   @mock.patch("apache.aurora.client.api.AuroraClientAPI.drain_hosts",
               spec=AuroraClientAPI.drain_hosts)
-  @mock.patch("threading._Event.wait")
+  @mock.patch(THREADING_EVENT_WAIT)
   def test_drain_hosts_timed_out_wait(self, _, mock_drain_hosts, mock_maintenance_status, mock_log):
     fake_maintenance_status_response = Response(
         responseCode=ResponseCode.OK,

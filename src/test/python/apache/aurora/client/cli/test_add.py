@@ -11,7 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-from unittest.mock import call, patch
+try:
+  from unittest.mock import call, patch
+except ImportError:
+  from mock import call, patch
 
 import pytest
 

@@ -15,6 +15,7 @@
 from pystachio import Ref
 from pystachio.matcher import Any, Matcher
 from twitter.common.contextutil import temporary_file
+from twitter.common.lang import Compatibility
 
 from apache.aurora.client import binding_helper
 from apache.aurora.client.binding_helper import BindingHelper, CachingBindingHelper
@@ -90,7 +91,7 @@ class CachedHelper(CachingBindingHelper):
 
 def write_and_load_config(role):
   with temporary_file() as fp:
-    fp.write(GENERIC_CONFIG)
+    fp.write(Compatibility.to_bytes(GENERIC_CONFIG))
     fp.flush()
     return AuroraConfig.load(fp.name, name='hello_world', select_role=role)
 

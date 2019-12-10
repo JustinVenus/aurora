@@ -12,12 +12,21 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'observer',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
+    '3rdparty/python:mock',
     'src/main/python/apache/thermos/monitoring',
     'src/main/python/apache/thermos/observer',
+  ]
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*.py'),
+  dependencies = [
+    'src/main/python/apache/thermos/monitoring:python3',
+    'src/main/python/apache/thermos/observer:python3',
   ]
 )

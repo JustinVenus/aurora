@@ -12,12 +12,13 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'client',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
-    '3rdparty/python:mox3',
+    '3rdparty/python:futures',
+    '3rdparty/python:mock',
+    '3rdparty/python:mox',
     '3rdparty/python:pystachio',
     '3rdparty/python:twitter.common.contextutil',
     'src/main/python/apache/aurora/client',
@@ -25,10 +26,30 @@ python_tests(
   ],
 )
 
-python_library(
+python2_library(
   name = 'lib_fake_scheduler_proxy',
   sources = ['fake_scheduler_proxy.py'],
   dependencies = [
     'src/main/python/apache/aurora/client',
   ]
+)
+
+python3_library(
+  name = 'lib_fake_scheduler_proxy.py3',
+  sources = ['fake_scheduler_proxy.py'],
+  dependencies = [
+    'src/main/python/apache/aurora/client:python3',
+  ]
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*.py'),
+  dependencies = [
+    '3rdparty/python:mox3',
+    '3rdparty/python:pystachio',
+    '3rdparty/python:twitter.common.contextutil',
+    'src/main/python/apache/aurora/client:python3',
+    'src/main/python/apache/aurora/config:python3',
+  ],
 )

@@ -12,10 +12,13 @@
 # limitations under the License.
 #
 
-import contextlib
 from collections import defaultdict
-from unittest.mock import create_autospec, patch
+try:
+  from unittest.mock import create_autospec, patch
+except ImportError:
+  from mock import create_autospec, patch
 
+from compat import contextlib
 from twitter.common.contextutil import temporary_file
 
 from apache.aurora.admin.admin import sla_list_safe_domain, sla_probe_hosts

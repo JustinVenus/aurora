@@ -12,16 +12,32 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'config',
   sources = globs('*py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
+    '3rdparty/python:mock',
     '3rdparty/python:requests-mock',
     '3rdparty/python:twitter.common.contextutil',
     'api/src/main/thrift/org/apache/aurora/gen',
     'src/main/python/apache/aurora/config',
     'src/main/python/apache/aurora/client',
+  ],
+  coverage = [
+    'apache.aurora.config',
+    'apache.thermos.config'
+  ]
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*py'),
+  dependencies = [
+    '3rdparty/python:requests-mock',
+    '3rdparty/python:twitter.common.contextutil',
+    'api/src/main/thrift/org/apache/aurora/gen:python3',
+    'src/main/python/apache/aurora/config:python3',
+    'src/main/python/apache/aurora/client:python3',
   ],
   coverage = [
     'apache.aurora.config',

@@ -12,7 +12,11 @@
 # limitations under the License.
 #
 
-from unittest import mock, TestCase
+try:
+  from unittest import mock, TestCase
+except ImportError:
+  from unittest import TestCase
+  import mock
 
 from mesos.interface import ExecutorDriver, mesos_pb2
 from twitter.common import log

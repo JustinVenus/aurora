@@ -12,11 +12,11 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'core',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
+    '3rdparty/python:mock',
     '3rdparty/python:psutil',
     '3rdparty/python:twitter.common.contextutil',
     '3rdparty/python:twitter.common.quantity',
@@ -25,5 +25,20 @@ python_tests(
     'src/main/python/apache/thermos/core',
     'src/main/python/apache/thermos/monitoring',
     'src/main/python/apache/thermos/testing',
+  ]
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*.py'),
+  dependencies = [
+    '3rdparty/python:psutil',
+    '3rdparty/python:twitter.common.contextutil',
+    '3rdparty/python:twitter.common.quantity',
+    '3rdparty/python:twitter.common.process',
+    'src/main/python/apache/thermos/config:python3',
+    'src/main/python/apache/thermos/core:python3',
+    'src/main/python/apache/thermos/monitoring:python3',
+    'src/main/python/apache/thermos/testing:python3',
   ]
 )

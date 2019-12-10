@@ -12,7 +12,10 @@
 # limitations under the License.
 #
 
-from functools import reduce
+try:
+  from functools import reduce
+except ImportError:
+  pass
 
 import pytest
 from twitter.common.collections import OrderedDict

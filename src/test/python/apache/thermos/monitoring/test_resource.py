@@ -13,7 +13,11 @@
 #
 
 from time import time
-from unittest import mock, TestCase
+try:
+  from unittest import mock, TestCase
+except ImportError:
+  import mock
+  from unittest import TestCase
 
 import pytest
 from twitter.common.quantity import Amount, Time

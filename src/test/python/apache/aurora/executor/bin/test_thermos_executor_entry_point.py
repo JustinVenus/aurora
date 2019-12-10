@@ -13,7 +13,10 @@
 #
 import os
 import unittest
-from unittest.mock import Mock, create_autospec, patch
+try:
+  from unittest.mock import Mock, create_autospec, patch
+except ImportError:
+  from mock import Mock, create_autospec, patch
 
 from apache.aurora.executor.bin.thermos_executor_main import dump_runner_pex, initialize, proxy_main
 from apache.aurora.executor.common.path_detector import MesosPathDetector

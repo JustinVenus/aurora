@@ -13,7 +13,10 @@
 #
 
 from contextlib import contextmanager
-from unittest import mock
+try:
+  from unittest import mock
+except ImportError:
+  import mock
 
 from twitter.common.quantity import Amount, Time
 

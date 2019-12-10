@@ -14,10 +14,14 @@
 
 import os
 from io import BytesIO
-from unittest import mock
+try:
+  from unittest import mock
+except ImportError:
+  import mock
 
 import pytest
 from twitter.common.contextutil import temporary_dir
+from twitter.common.lang import Compatibility
 
 from apache.aurora.client import config
 from apache.aurora.client.config import (
@@ -84,7 +88,7 @@ def test_get_config_announces():
       MESOS_CONFIG_WITH_ANNOUNCE_2,
       MESOS_CONFIG_WITHOUT_ANNOUNCE):
 
-    bio = BytesIO(good_config)
+    bio = BytesIO(Compatibility.to_bytes(good_config))
     get_aurora_config('hello_world', bio).job()
 
 
@@ -93,10 +97,10 @@ def test_get_config_with_broken_subscopes():
       'cmdline': 'echo {{hello[{{thermos.ports[http]}}]}}',
       'announce': '',
   }
-  bio = BytesIO(bad_config)
+  bio = BytesIO(Compatibility.to_bytes(bad_config))
   with pytest.raises(AuroraConfig.InvalidConfig) as cm:
     get_aurora_config('hello_world', bio).job()
-  assert 'Unexpected unbound refs' in str(cm.value.message)
+  assert 'Unexpected unbound refs' in str(cm.value.args[0])
 
 
 def test_get_config_primary_port_warning(capsys):
@@ -104,7 +108,9 @@ def test_get_config_primary_port_warning(capsys):
     'cmdline': 'echo {{thermos.ports[http]}}',
     'announce': 'announce = Announcer(primary_port = "custom", portmap = {}),'
   }
-  get_aurora_config('hello_world', BytesIO(config_unbound_primary_port)).job()
+  get_aurora_config(
+      'hello_world',
+      BytesIO(Compatibility.to_bytes(config_unbound_primary_port))).job()
   _, err = capsys.readouterr()
 
   msg = "Announcer specified primary port as 'custom' but no processes have bound that port"
@@ -116,7 +122,9 @@ def test_get_config_mapped_primary_port(capsys):
     'cmdline': 'echo {{thermos.ports[custom]}}',
     'announce': 'announce = Announcer(primary_port = "http", portmap = {"http": "custom"}),'
   }
-  get_aurora_config('hello_world', BytesIO(config_mapped_primary_port)).job()
+  get_aurora_config(
+      'hello_world',
+      BytesIO(Compatibility.to_bytes(config_mapped_primary_port))).job()
   out, err = capsys.readouterr()
 
   assert err == ""  # No warning about unbound primary port
@@ -124,7 +132,7 @@ def test_get_config_mapped_primary_port(capsys):
 
 
 def test_get_config_select():
-  bio = BytesIO(MESOS_CONFIG_WITHOUT_ANNOUNCE)
+  bio = BytesIO(Compatibility.to_bytes(MESOS_CONFIG_WITHOUT_ANNOUNCE))
 
   get_aurora_config(
       'hello_world',
@@ -143,7 +151,7 @@ def test_get_config_select():
         select_role='moua',
         select_cluster='test-cluster').job()
 
-  assert 'test-cluster/john_doe/test/hello_world' in str(cm.value.message)
+  assert 'test-cluster/john_doe/test/hello_world' in str(cm.value.args[0])
 
 
 def test_include():
@@ -151,13 +159,13 @@ def test_include():
     hello_mesos_fname = "hello_world.mesos"
     hello_mesos_path = os.path.join(dir, hello_mesos_fname)
     with open(os.path.join(dir, hello_mesos_path), "wb") as hello_world_mesos:
-      hello_world_mesos.write(MESOS_CONFIG_WITHOUT_ANNOUNCE)
+      hello_world_mesos.write(Compatibility.to_bytes(MESOS_CONFIG_WITHOUT_ANNOUNCE))
       hello_world_mesos.flush()
 
       hello_include_fname_path = os.path.join(dir, "hello_include_fname.mesos")
       with open(hello_include_fname_path, "wb+") as hello_include_fname_fp:
-        hello_include_fname_fp.write(MESOS_CONFIG_WITH_INCLUDE %
-            ("", """'%s'""" % hello_mesos_fname))
+        data = MESOS_CONFIG_WITH_INCLUDE % ("", """'%s'""" % hello_mesos_fname)
+        hello_include_fname_fp.write(Compatibility.to_bytes(data))
         hello_include_fname_fp.flush()
 
         get_aurora_config('hello_world', hello_include_fname_path)

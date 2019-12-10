@@ -12,10 +12,13 @@
 # limitations under the License.
 #
 
-
-import contextlib
 import os
-from unittest import mock
+try:
+  from unittest import mock
+except ImportError:
+  import mock
+
+from compat import contextlib
 
 from apache.thermos.monitoring.detector import FixedPathDetector
 from apache.thermos.observer.http.file_browser import TaskObserverFileBrowser

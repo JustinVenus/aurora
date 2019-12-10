@@ -13,7 +13,10 @@
 #
 
 import unittest
-from unittest.mock import call, patch
+try:
+  from unittest.mock import call, patch
+except ImportError:
+  from mock import call, patch
 
 import pytest
 from twitter.common.contextutil import temporary_file

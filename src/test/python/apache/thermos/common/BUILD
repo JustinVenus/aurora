@@ -12,13 +12,22 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'common',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     '3rdparty/python:twitter.common.testing',
     'src/main/python/apache/thermos/common',
     'src/main/python/apache/thermos/config',
+  ],
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*.py'),
+  dependencies = [
+    '3rdparty/python:twitter.common.testing',
+    'src/main/python/apache/thermos/common:python3',
+    'src/main/python/apache/thermos/config:python3',
   ],
 )

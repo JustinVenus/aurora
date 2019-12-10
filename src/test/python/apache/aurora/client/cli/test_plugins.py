@@ -12,7 +12,10 @@
 # limitations under the License.
 #
 
-from unittest.mock import patch
+try:
+  from unittest.mock import patch
+except ImportError:
+  from mock import patch
 
 from twitter.common.contextutil import temporary_file
 

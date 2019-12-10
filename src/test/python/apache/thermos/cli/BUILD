@@ -12,11 +12,19 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'cli',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
+    '3rdparty/python:mock',
     'src/main/python/apache/thermos/cli',
+  ]
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*.py'),
+  dependencies = [
+    'src/main/python/apache/thermos/cli:python3',
   ]
 )

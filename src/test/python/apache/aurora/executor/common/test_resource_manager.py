@@ -12,7 +12,10 @@
 # limitations under the License.
 #
 
-from unittest import mock
+try:
+  from unittest import mock
+except ImportError:
+  import mock
 
 from mesos.interface import mesos_pb2
 

@@ -17,6 +17,7 @@ import json
 import re
 
 import pytest
+from twitter.common.lang import Compatibility
 
 from apache.aurora.config import AuroraConfig
 from apache.aurora.config.schema.base import (
@@ -411,7 +412,10 @@ def test_metadata_in_config():
   tti = job.taskConfig
 
   assert len(tti.metadata) == 1
-  pi = iter(tti.metadata).next()
+  if Compatibility.PY2:
+    pi = iter(tti.metadata).next()
+  else:
+    pi = next(iter(tti.metadata))
   assert pi.key == 'alpha'
   assert pi.value == '1'
 

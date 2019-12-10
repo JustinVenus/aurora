@@ -12,8 +12,12 @@
 # limitations under the License.
 #
 
-import contextlib
-from unittest.mock import PropertyMock, call, create_autospec, patch
+try:
+  from unittest.mock import PropertyMock, call, create_autospec, patch
+except ImportError:
+  from mock import PropertyMock, call, create_autospec, patch
+
+from compat import contextlib
 
 from apache.aurora.admin.admin import (
     get_scheduler,

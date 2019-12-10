@@ -12,10 +12,29 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'monitoring',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
+  dependencies = [
+    '3rdparty/python:certifi',
+    '3rdparty/python:chardet',
+    '3rdparty/python:futures',
+    '3rdparty/python:httpretty',
+    '3rdparty/python:idna',
+    '3rdparty/python:mock',
+    '3rdparty/python:requests',
+    '3rdparty/python:twitter.common.contextutil',
+    '3rdparty/python:twitter.common.dirutil',
+    '3rdparty/python:twitter.common.quantity',
+    '3rdparty/python:urllib3',
+    'src/main/python/apache/thermos/common',
+    'src/main/python/apache/thermos/monitoring',
+  ]
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*.py'),
   dependencies = [
     '3rdparty/python:certifi',
     '3rdparty/python:chardet',
@@ -25,7 +44,7 @@ python_tests(
     '3rdparty/python:twitter.common.contextutil',
     '3rdparty/python:twitter.common.dirutil',
     '3rdparty/python:twitter.common.quantity',
-    'src/main/python/apache/thermos/common',
-    'src/main/python/apache/thermos/monitoring',
+    'src/main/python/apache/thermos/common:python3',
+    'src/main/python/apache/thermos/monitoring:python3',
   ]
 )

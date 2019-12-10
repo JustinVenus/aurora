@@ -14,7 +14,10 @@
 
 import logging
 from threading import Thread
-from unittest.mock import ANY, Mock, call, create_autospec
+try:
+  from unittest.mock import ANY, Mock, call, create_autospec
+except ImportError:
+  from mock import ANY, Mock, call, create_autospec
 
 import pytest
 import requests
@@ -175,7 +178,7 @@ def test_auth_type_valid():
 def test_auth_type_invalid():
   with pytest.raises(TypeError) as e:
     TRequestsTransport('http://localhost:1', auth="auth")
-  assert e.value.message == 'Invalid auth type. Expected: AuthBase but got str'
+  assert e.value.args[0] == 'Invalid auth type. Expected: AuthBase but got str'
 
 
 def test_requests_transport_session_reuse():

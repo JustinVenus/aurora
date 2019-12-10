@@ -15,7 +15,10 @@
 import time
 import unittest
 from contextlib import contextmanager
-from unittest.mock import Mock, call, patch
+try:
+  from unittest.mock import Mock, call, patch
+except ImportError:
+  from mock import Mock, call, patch
 
 from apache.aurora.client.api.sla import JobUpTimeLimit, Sla, task_query
 from apache.aurora.client.base import DEFAULT_GROUPING, add_grouping, remove_grouping

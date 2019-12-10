@@ -12,14 +12,25 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'common',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
+    '3rdparty/python:mock',
     '3rdparty/python:twitter.common.contextutil',
     '3rdparty/python:twitter.common.options',
     'api/src/main/thrift/org/apache/aurora/gen',
     'src/main/python/apache/aurora/common',
+  ]
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*.py'),
+  dependencies = [
+    '3rdparty/python:twitter.common.contextutil',
+    '3rdparty/python:twitter.common.options',
+    'api/src/main/thrift/org/apache/aurora/gen:python3',
+    'src/main/python/apache/aurora/common:python3',
   ]
 )

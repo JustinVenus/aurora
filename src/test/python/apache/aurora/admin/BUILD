@@ -12,11 +12,13 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'admin',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
+    '3rdparty/python/compat',
+    '3rdparty/python:futures',
+    '3rdparty/python:mock',
     '3rdparty/python:twitter.common.contextutil',
     '3rdparty/python:twitter.common.log',
     '3rdparty/python:twitter.common.quantity',
@@ -25,5 +27,21 @@ python_tests(
     'src/main/python/apache/aurora/client',
     'src/main/python/apache/aurora/common',
     'src/test/python/apache/aurora',
+  ],
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*.py'),
+  dependencies = [
+    '3rdparty/python/compat',
+    '3rdparty/python:twitter.common.contextutil',
+    '3rdparty/python:twitter.common.log',
+    '3rdparty/python:twitter.common.quantity',
+    'api/src/main/thrift/org/apache/aurora/gen:python3',
+    'src/main/python/apache/aurora/admin:python3',
+    'src/main/python/apache/aurora/client:python3',
+    'src/main/python/apache/aurora/common:python3',
+    'src/test/python/apache/aurora:python3',
   ],
 )

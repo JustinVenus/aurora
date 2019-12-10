@@ -12,9 +12,12 @@
 # limitations under the License.
 #
 
-import contextlib
-from unittest.mock import call, patch
+try:
+  from unittest.mock import call, patch
+except ImportError:
+  from mock import call, patch
 
+from compat import contextlib
 from twitter.common.contextutil import temporary_file
 
 from apache.aurora.client.base import get_job_page

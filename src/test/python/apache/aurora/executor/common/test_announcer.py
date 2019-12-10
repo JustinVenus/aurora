@@ -14,7 +14,10 @@
 
 import json
 import threading
-from unittest.mock import MagicMock, call, create_autospec, patch
+try:
+  from unittest.mock import MagicMock, call, create_autospec, patch
+except ImportError:
+  from mock import MagicMock, call, create_autospec, patch
 
 import pytest
 from kazoo.client import KazooClient

@@ -12,12 +12,21 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'health_check',
   sources = globs('*py'),
-  compatibility = 'CPython>=3.6,<4',
+  dependencies = [
+    '3rdparty/python:mock',
+    '3rdparty/python:mox',
+    'src/main/python/apache/aurora/common',
+  ]
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*py'),
   dependencies = [
     '3rdparty/python:mox3',
-    'src/main/python/apache/aurora/common',
+    'src/main/python/apache/aurora/common:python3',
   ]
 )

@@ -13,7 +13,10 @@
 #
 
 import json
-from unittest.mock import patch
+try:
+  from unittest.mock import patch
+except ImportError:
+  from mock import patch
 
 from apache.aurora.client.cli.client import AuroraCommandLine
 

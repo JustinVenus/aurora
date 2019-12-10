@@ -12,8 +12,14 @@
 # limitations under the License.
 #
 
-from io import StringIO
-from unittest.mock import patch
+try:
+  from StringIO import StringIO
+except ImportError:
+  from io import StringIO
+try:
+  from unittest.mock import patch
+except ImportError:
+  from mock import patch
 
 import pytest
 

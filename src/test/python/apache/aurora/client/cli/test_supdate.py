@@ -13,8 +13,12 @@
 #
 import json
 import time
-from unittest import mock
-from unittest.mock import ANY, Mock, call, create_autospec, patch
+try:
+  from unittest import mock
+  from unittest.mock import ANY, Mock, call, create_autospec, patch
+except ImportError:
+  import mock
+  from mock import ANY, Mock, call, create_autospec, patch
 
 import pytest
 from pystachio import Empty

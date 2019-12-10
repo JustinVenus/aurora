@@ -14,7 +14,10 @@
 
 import os
 from contextlib import contextmanager
-from unittest import mock
+try:
+  from unittest import mock
+except ImportError:
+  import mock
 
 from twitter.common.contextutil import temporary_dir
 

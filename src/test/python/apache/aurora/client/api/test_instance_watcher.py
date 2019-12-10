@@ -15,7 +15,10 @@
 import unittest
 from math import ceil
 
-from mox3 import mox
+try:
+  from mox3 import mox
+except ImportError:
+  import mox
 
 from apache.aurora.client.api.health_check import HealthCheck
 from apache.aurora.client.api.instance_watcher import InstanceWatcher

@@ -12,11 +12,20 @@
 # limitations under the License.
 #
 
-python_tests(name = 'hooks',
+python2_tests(name = 'hooks',
   sources = globs('*.py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
+    '3rdparty/python:futures',
+    '3rdparty/python:mock',
     'src/main/python/apache/aurora/common',
     'src/main/python/apache/aurora/client',
+  ],
+)
+
+python3_tests(name = 'python3',
+  sources = globs('*.py'),
+  dependencies = [
+    'src/main/python/apache/aurora/common:python3',
+    'src/main/python/apache/aurora/client:python3',
   ],
 )

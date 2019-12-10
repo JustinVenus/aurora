@@ -12,14 +12,24 @@
 # limitations under the License.
 #
 
-python_tests(
+python2_tests(
   name = 'docker',
   sources = globs('*py'),
-  compatibility = 'CPython>=3.6,<4',
   dependencies = [
     '3rdparty/python:requests',
     '3rdparty/python:requests-mock',
     '3rdparty/python:twitter.common.contextutil',
     'src/main/python/apache/aurora/client'
+  ]
+)
+
+python3_tests(
+  name = 'python3',
+  sources = globs('*py'),
+  dependencies = [
+    '3rdparty/python:requests',
+    '3rdparty/python:requests-mock',
+    '3rdparty/python:twitter.common.contextutil',
+    'src/main/python/apache/aurora/client:python3'
   ]
 )

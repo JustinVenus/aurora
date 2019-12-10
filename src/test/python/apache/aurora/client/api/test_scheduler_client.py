@@ -15,12 +15,19 @@
 import inspect
 import time
 import unittest
-from unittest import mock
+try:
+  from unittest import mock
+except ImportError:
+  import mock
 
 import pytest
-from mox3.mox import IgnoreArg, IsA, Mox
+try:
+  from mox3.mox import IgnoreArg, IsA, Mox
+except ImportError:
+  from mox import IgnoreArg, IsA, Mox
 from requests.auth import AuthBase
 from thrift.transport import TTransport
+from twitter.common.lang import Compatibility
 from twitter.common.quantity import Amount, Time
 from twitter.common.zookeeper.kazoo_client import TwitterKazooClient
 from twitter.common.zookeeper.serverset.endpoint import ServiceInstance
@@ -54,6 +61,7 @@ JOB_NAME = 'barjobname'
 JOB_ENV = 'devel'
 JOB_KEY = JobKey(role=ROLE, environment=JOB_ENV, name=JOB_NAME)
 DEFAULT_RESPONSE = Response()
+THREADING_EVENT_WAIT = 'threading.{}Event.wait'.format('_' if Compatibility.PY2 else '')
 
 
 def test_coverage():
@@ -460,7 +468,7 @@ class TestSchedulerClient(unittest.TestCase):
 
   @mock.patch('apache.aurora.client.api.scheduler_client.SchedulerClient',
               spec=scheduler_client.SchedulerClient)
-  @mock.patch('threading._Event.wait')
+  @mock.patch(THREADING_EVENT_WAIT)
   def test_transient_error(self, _, client):
     mock_scheduler_client = mock.create_autospec(
         spec=scheduler_client.SchedulerClient,
@@ -483,7 +491,7 @@ class TestSchedulerClient(unittest.TestCase):
 
   @mock.patch('apache.aurora.client.api.scheduler_client.SchedulerClient',
               spec=scheduler_client.SchedulerClient)
-  @mock.patch('threading._Event.wait')
+  @mock.patch(THREADING_EVENT_WAIT)
   def test_performBackup_retriable_errors(self, mock_wait, mock_client):
     mock_scheduler_client = mock.create_autospec(
         spec=scheduler_client.SchedulerClient,
@@ -506,7 +514,7 @@ class TestSchedulerClient(unittest.TestCase):
 
   @mock.patch('apache.aurora.client.api.scheduler_client.SchedulerClient',
               spec=scheduler_client.SchedulerClient)
-  @mock.patch('threading._Event.wait')
+  @mock.patch(THREADING_EVENT_WAIT)
   def test_performBackup_transport_exception(self, mock_wait, mock_client):
     mock_scheduler_client = mock.create_autospec(
       spec=scheduler_client.SchedulerClient,
@@ -527,7 +535,7 @@ class TestSchedulerClient(unittest.TestCase):
 
   @mock.patch('apache.aurora.client.api.scheduler_client.SchedulerClient',
               spec=scheduler_client.SchedulerClient)
-  @mock.patch('threading._Event.wait')
+  @mock.patch(THREADING_EVENT_WAIT)
   def test_getTierConfigs_transport_exception(self, mock_wait, mock_client):
     mock_scheduler_client = mock.create_autospec(
       spec=scheduler_client.SchedulerClient,

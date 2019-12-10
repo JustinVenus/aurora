@@ -14,7 +14,10 @@
 
 import textwrap
 from copy import deepcopy
-from unittest.mock import Mock, call
+try:
+  from unittest.mock import Mock, call
+except ImportError:
+  from mock import Mock, call
 
 import pytest
 from pystachio import Empty

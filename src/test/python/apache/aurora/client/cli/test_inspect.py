@@ -12,9 +12,13 @@
 # limitations under the License.
 #
 
-import contextlib
 import json
-from unittest.mock import patch
+try:
+  from unittest.mock import patch
+except ImportError:
+  from mock import patch
+
+from compat import contextlib
 
 from apache.aurora.client.cli.client import AuroraCommandLine
 from apache.aurora.config import AuroraConfig

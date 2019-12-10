@@ -12,11 +12,15 @@
 # limitations under the License.
 #
 
-import contextlib
 import json
 import re
 import textwrap
-from unittest.mock import patch
+try:
+  from unittest.mock import patch
+except ImportError:
+  from mock import patch
+
+from compat import contextlib
 
 from apache.aurora.client.cli import EXIT_INVALID_PARAMETER, EXIT_OK
 from apache.aurora.client.cli.client import AuroraCommandLine

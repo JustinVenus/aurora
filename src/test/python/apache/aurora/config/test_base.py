@@ -15,6 +15,7 @@
 import pytest
 from pystachio import Default, Float, String, Struct
 from twitter.common.contextutil import temporary_file
+from twitter.common.lang import Compatibility
 
 from apache.aurora.config import AuroraConfig, PortResolver
 from apache.aurora.config.schema.base import Announcer, Empty, Job, Process, Resources, Task
@@ -135,14 +136,14 @@ jobs = 1234
 def test_empty_config():
   with pytest.raises(AuroraConfig.InvalidConfig):
     with temporary_file() as fp:
-      fp.write(UNDERSPECIFIED_MESOS_CONFIG)
+      fp.write(Compatibility.to_bytes(UNDERSPECIFIED_MESOS_CONFIG))
       fp.flush()
       AuroraConfig.load(fp.name)
 
 
 def test_simple_config():
   with temporary_file() as fp:
-    fp.write(MESOS_CONFIG)
+    fp.write(Compatibility.to_bytes(MESOS_CONFIG))
     fp.flush()
     proxy_config1 = AuroraConfig.load(fp.name)
     proxy_config2 = AuroraConfig.load(fp.name, name="hello_world")
