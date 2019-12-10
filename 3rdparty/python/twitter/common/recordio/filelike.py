@@ -18,17 +18,36 @@
 
 import errno
 import os
+import sys
 
 from twitter.common import log
 
 
 _VALID_STRINGIO_CLASSES = []
 
-from io import StringIO
+try:
+  from StringIO import StringIO
+except ImportError:
+  from io import StringIO
 
+# The hoops jumped through here are because StringI and StringO are not
+# exposed directly in the stdlib.
 _VALID_STRINGIO_CLASSES.append(StringIO)
 
+try:
+  from cStringIO import StringIO
+  _VALID_STRINGIO_CLASSES.append(type(StringIO())) # cStringIO.StringI
+  _VALID_STRINGIO_CLASSES.append(type(StringIO('foo'))) # cStringIO.StringO
+except ImportError:
+  pass
+
 _VALID_STRINGIO_CLASSES = tuple(_VALID_STRINGIO_CLASSES)
+
+if os.name == 'posix' and sys.version_info[0] < 3:
+  _FILE_OBJ = (file,)
+else:
+  from io import IOBase
+  _FILE_OBJ = (IOBase,)
 
 
 class FileLike(object):
@@ -38,7 +57,7 @@ class FileLike(object):
   def get(fp):
     if isinstance(fp, _VALID_STRINGIO_CLASSES):
       return StringIOFileLike(fp)
-    elif isinstance(fp, file):
+    elif isinstance(fp, _FILE_OBJ):
       return FileLike(fp)
     elif isinstance(fp, FileLike):
       return fp

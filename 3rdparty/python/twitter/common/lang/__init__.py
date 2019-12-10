@@ -21,8 +21,20 @@ from numbers import Integral, Real
 from .lockable import Lockable
 
 
-from io import StringIO
-from io import BytesIO
+# StringIO / BytesIO
+# TODO(wickman)  Since the io package is available in 2.6.x, use that instead of
+# cStringIO/StringIO
+try:
+  # CPython 2.x
+  from cStringIO import StringIO
+except ImportError:
+  try:
+    # Python 2.x
+    from StringIO import StringIO
+  except:
+    # Python 3.x
+    from io import StringIO
+    from io import BytesIO
 
 
 # Singletons
@@ -80,7 +92,10 @@ AbstractClass = ABCMeta('AbstractClass', (object,), {})
 def coroutine(func):
   def start(*args, **kwargs):
     cr = func(*args, **kwargs)
-    next(cr)
+    if PY3:
+      next(cr)
+    else:
+      cr.next()
     return cr
   return start
 
@@ -90,24 +105,38 @@ class Compatibility(object):
   PY2 = sys_version_info[0] == 2
   PY3 = sys_version_info[0] == 3
   StringIO = StringIO
-  BytesIO = BytesIO
+  BytesIO = BytesIO if PY3 else StringIO
 
   integer = (Integral,)
   real = (Real,)
   numeric = integer + real
-  string = (str,)
+  string = (str,) if PY3 else (str, unicode)
   bytes = (bytes,)
 
-  @staticmethod
-  def to_bytes(st):
-    return bytes(st, encoding='utf8')
+  if PY2:
+    @staticmethod
+    def to_bytes(st):
+      return str(st)
+  else:
+    @staticmethod
+    def to_bytes(st):
+      return bytes(st, encoding='utf8')
 
-  @staticmethod
-  def exec_function(ast, globals_map):
-    locals_map = globals_map
-    exec(ast, globals_map, locals_map)
-    return locals_map
-
+  if PY3:
+    @staticmethod
+    def exec_function(ast, globals_map):
+      locals_map = globals_map
+      exec(ast, globals_map, locals_map)
+      return locals_map
+  else:
+    eval(compile(
+"""
+@staticmethod
+def exec_function(ast, globals_map):
+  locals_map = globals_map
+  exec ast in globals_map, locals_map
+  return locals_map
+""", "<exec_function>", "exec"))
 
 __all__ = [
   'AbstractClass',

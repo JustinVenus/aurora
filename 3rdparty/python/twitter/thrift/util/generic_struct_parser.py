@@ -2,6 +2,8 @@
 
 __author__ = 'ugo'  # Ugo Di Girolamo
 
+from __future__ import print_function
+
 import traceback
 from thrift.Thrift import TType
 

@@ -21,6 +21,7 @@ Exports module-level options such as --log_dir and --stderr_log_level, but may b
 overridden locally before calling log.init().
 """
 
+from __future__ import print_function
 
 import logging
 import optparse
